@@ -3,25 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>셰켈 코인 (Shekel Coin) 정보</title>
+    <title id="page-title">Rabbi Schlomo (SHEKEL) 프로젝트</title>
     <style>
-        /* CSS 스타일은 변경되지 않았으므로 그대로 사용하시면 됩니다. */
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f4f7f6; color: #333; line-height: 1.6; }
-        .container { max-width: 960px; margin: 20px auto; padding: 0 20px; }
-        header { text-align: center; padding: 20px 0; border-bottom: 1px solid #ddd; margin-bottom: 30px; }
-        header h1 { font-size: 2.5em; color: #2c3e50; margin: 0; }
-        .card { background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 25px; margin-bottom: 25px; }
-        .card h2 { font-size: 1.8em; color: #34495e; margin-top: 0; border-bottom: 2px solid #e0e0e0; padding-bottom: 10px; }
-        .chart-container { position: relative; width: 100%; height: 600px; border-radius: 8px; overflow: hidden; }
+        /* 기본 스타일 */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 960px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 30px;
+        }
+        header h1 {
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin: 0;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+        .card h2 {
+            font-size: 1.8em;
+            color: #34495e;
+            margin-top: 0;
+            padding-bottom: 10px;
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 15px;
+        }
+        .card-header h2 {
+            border: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .lang-switcher {
+            margin-bottom: 25px;
+            text-align: right;
+        }
+        .lang-switcher button {
+            background-color: #f0f0f0; border: 1px solid #ccc; padding: 8px 16px;
+            cursor: pointer; border-radius: 5px; font-weight: bold;
+            margin-left: 5px; transition: background-color 0.3s, color 0.3s;
+        }
+        .lang-switcher button:hover { background-color: #e0e0e0; }
+        .lang-switcher button.active { background-color: #34495e; color: #ffffff; border-color: #34495e; }
+
+        .intro-content h3 {
+            font-size: 1.5em; color: #2c3e50; margin-top: 25px;
+            border-bottom: 1px solid #eee; padding-bottom: 8px;
+        }
+        .intro-content code {
+            background-color: #ecf0f1; padding: 2px 6px; border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace; word-break: break-all;
+        }
+        
+        .sector-tags { margin-top: 10px; }
+        .sector-tag {
+            display: inline-block; background-color: #e9eef1; color: #34495e;
+            padding: 4px 12px; border-radius: 15px; font-size: 0.9em; font-weight: 500;
+        }
+        
+        .official-links ul { list-style: none; padding: 0; }
+        .official-links li { margin-bottom: 15px; }
+        .official-links a {
+            display: inline-flex; align-items: center; text-decoration: none;
+            color: #3498db; font-weight: bold; font-size: 1.1em;
+        }
+        .official-links a:hover { text-decoration: underline; }
+        .official-links a svg { width: 20px; height: 20px; margin-left: 8px; fill: #3498db; }
+
+        .chart-container { position: relative; width: 100%; height: 600px; }
         #geckoterminal-embed { width: 100%; height: 100%; border: none; }
-        .twitter-container { border-radius: 8px; overflow: hidden; }
-        .disclaimer { font-size: 0.9em; color: #7f8c8d; background-color: #ecf0f1; padding: 15px; border-left: 4px solid #7f8c8d; border-radius: 4px; }
-        footer { text-align: center; padding: 20px 0; margin-top: 30px; font-size: 0.9em; color: #95a5a6; }
+        .disclaimer {
+            font-size: 0.9em; color: #7f8c8d; background-color: #ecf0f1;
+            padding: 15px; border-left: 4px solid #7f8c8d; border-radius: 4px;
+        }
+        footer {
+            text-align: center; padding: 20px 0; margin-top: 30px;
+            font-size: 0.9em; color: #95a5a6;
+        }
         @media (max-width: 768px) {
             header h1 { font-size: 2em; }
             .card h2 { font-size: 1.5em; }
             .chart-container { height: 450px; }
             .container { padding: 0 15px; }
+            .card-header { flex-direction: column; align-items: flex-start; }
         }
     </style>
 </head>
@@ -29,47 +116,138 @@
 
     <div class="container">
         <header>
-            <h1>셰켈 코인 (Shekel Coin) 대시보드</h1>
+            <h1 id="main-title">Rabbi Schlomo (SHEKEL) 프로젝트</h1>
         </header>
 
         <main>
+            <!-- 프로젝트 소개 섹션 -->
             <section class="card">
-                <h2>소개</h2>
-                <p>이 페이지는 Base 네트워크 기반의 셰켈 코인(Shekel Coin)에 대한 실시간 정보를 제공합니다. 아래 GeckoTerminal 차트와 트위터 피드를 통해 다양한 데이터를 확인하실 수 있습니다.</p>
+                <div class="card-header">
+                    <h2 id="intro-title">프로젝트 소개</h2>
+                    <div class="lang-switcher">
+                        <button id="btn-ko" class="active">한국어</button>
+                        <button id="btn-en">English</button>
+                    </div>
+                </div>
+                <!-- 한국어 콘텐츠 -->
+                <div class="intro-content lang-ko">
+                    <h3>프로젝트 개요 및 컨셉</h3><p>Rabbi Schlomo by Virtuals는 인공지능과 디파이(DeFi)를 결합한 암호화폐 투자 프로젝트로, AI 투자 펀드 런치패드 역할을 합니다. 사용자는 이 플랫폼을 통해 완전히 자동화된 트레이딩 에이전트(펀드 매니저)를 블록체인상에 직접 출시할 수 있습니다. 프로젝트는 유머러스하게 유대교 콘셉트를 활용하고 있으며, 대표 AI 에이전트에 “라비 슬로모(Rabbi Schlomo)”라는 인격을 부여하고 토큰 이름도 이스라엘 화폐 단위에서 착안한 SHEKEL(셰켈)로 정했습니다. 재미있는 밈(meme) 요소를 가졌지만 단순한 밈 코인에 그치지 않고 실제 AI 기술을 기반으로 디파이 생태계에서 실질적인 용도를 제공하는 프로젝트입니다.</p><h3>프로젝트 배경: 코셔 캐피탈 & 버추얼스</h3><p>Kosher Capital은 Rabbi Schlomo 프로젝트의 기반 플랫폼으로, “트레이딩 에이전트 프레임워크” 혹은 AI 기반 펀드 런치패드로 알려져 있습니다. Virtuals 프로토콜 생태계를 활용한 프로젝트입니다. Virtuals 프로토콜은 AI 에이전트를 토큰화하여 공동 소유할 수 있게 하는 인프라로, 각 AI 에이전트마다 10억 개의 고정 토큰을 발행하여 소유권과 거버넌스를 표현합니다. Kosher Capital은 이러한 프레임워크를 Coinbase의 레이어2 체인인 Base에서 활용하여 AI 펀드 매니저들을 배치합니다. Rabbi Schlomo는 Kosher Capital의 대표적인 AI 펀드 매니저로서, 자체 규칙에 따라 완전히 자동화된 암호화폐 트레이딩을 수행하는 플래그십 에이전트입니다.</p><h3>토큰 상세 정보</h3><ul><li><strong>토큰 이름:</strong> Rabbi Schlomo by Virtuals</li><li><strong>심볼(Symbol):</strong> SHEKEL (셰켈)</li><li><strong>네트워크:</strong> Base 체인</li><li><strong>컨트랙트 주소:</strong> <code>0x5f6a682a58854c7fbe228712aeeffccde0008ac0</code></li><li><strong>토큰 표준:</strong> ERC-20</li><li><strong>총 발행량:</strong> 1,000,000,000 SHEKEL (10억 개)</li><li><strong>유통량:</strong> 1,000,000,000 (전량 유통)</li></ul>
+                    <h3>코인 섹터</h3>
+                    <div class="sector-tags">
+                        <span class="sector-tag">AI Fund Launchpad</span>
+                    </div>
+                    <h3>토큰 활용 및 용도</h3><p>SHEKEL 토큰은 Kosher Capital 생태계에서 여러 활용처가 있습니다. 주요 용도는 AI 펀드에 대한 소유권 및 거버넌스 참여, 펀드 운용 수익 공유 및 스테이킹 보상, 그리고 에이전트의 성공과 연동된 디플레이션 메커니즘 등입니다. 또한 플랫폼 내 공개 펀드 참여나 개인 펀드 개설 등 실제 유틸리티 통화로도 사용됩니다.</p>
+                </div>
+                <!-- 영어 콘텐츠 -->
+                <div class="intro-content lang-en" style="display: none;">
+                    <h3>Project Overview and Concept</h3><p>Rabbi Schlomo by Virtuals is an AI-driven crypto investment project that combines decentralized finance (DeFi) with artificial intelligence. It functions as an “AI Investment Fund Launchpad,” enabling users to create and deploy fully autonomous trading agents on-chain. The project’s theme is inspired by Jewish culture, personifying the lead AI agent as “Rabbi Schlomo” and naming its token SHEKEL. Despite the humorous branding, it’s not a mere meme coin; it’s backed by real AI technology and serves a serious purpose in the DeFi ecosystem.</p><h3>Background of Kosher Capital and Virtuals</h3><p>Kosher Capital is the platform behind Rabbi Schlomo, an innovative “Trading Agent Framework” or AI-driven fund launchpad. It leverages the Virtuals Protocol ecosystem, an infrastructure that enables AI agents to be tokenized and co-owned on blockchain. Each AI agent issues a fixed supply of 1 billion tokens for ownership and governance. Kosher Capital uses this framework on Base (Coinbase’s Layer-2 network) to deploy AI fund managers like Rabbi Schlomo, its flagship autonomous trading agent.</p><h3>Token Details</h3><ul><li><strong>Token Name:</strong> Rabbi Schlomo by Virtuals</li><li><strong>Symbol:</strong> SHEKEL</li><li><strong>Network:</strong> Base</li><li><strong>Contract Address:</strong> <code>0x5f6a682a58854c7fbe228712aeeffccde0008ac0</code></li><li><strong>Token Standard:</strong> ERC-20</li><li><strong>Total Supply:</strong> 1,000,000,000 SHEKEL (1 billion)</li><li><strong>Circulating Supply:</strong> 1,000,000,000 (fully circulating)</li></ul>
+                    <h3>Coin Sector</h3>
+                    <div class="sector-tags">
+                        <span class="sector-tag">AI Fund Launchpad</span>
+                    </div>
+                    <h3>Use Cases and Utility of SHEKEL</h3><p>The SHEKEL token serves multiple purposes, including ownership and governance of the AI fund, profit-sharing and staking rewards from the fund's performance, and deflationary mechanics through potential token buybacks and burns. It is also used as a utility currency within the platform for creating funds or participating in other ecosystem activities.</p>
+                </div>
             </section>
 
+            <!-- 실시간 가격/시총 차트 섹션 -->
             <section class="card">
-                <h2>실시간 가격 차트</h2>
+                <div class="card-header">
+                    <h2 id="chart-title">실시간 가격/시총 차트</h2>
+                </div>
                 <div class="chart-container">
                     <iframe height="100%" width="100%" id="geckoterminal-embed" title="GeckoTerminal Embed" src="https://www.geckoterminal.com/ko/base/pools/0xded72b40970af70720adbc5127092f3152392273?embed=1&info=0&swaps=0&grayscale=0&light_chart=0&chart_type=price&resolution=1d" frameborder="0" allow="clipboard-write" allowfullscreen></iframe>
                 </div>
             </section>
             
-            <section class="card">
-                <h2>최신 소식 (@KosherCapital)</h2>
-                <div class="twitter-container">
-                    <a class="twitter-timeline" data-height="600" data-theme="light" href="https://twitter.com/KosherCapital?ref_src=twsrc%5Etfw">Tweets by KosherCapital</a> 
-                    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <!-- 공식 링크 섹션 -->
+            <section class="card official-links">
+                <div class="card-header">
+                    <h2 id="links-title">공식 링크</h2>
                 </div>
+                <ul>
+                    <li><a href="#" target="_blank" rel="noopener noreferrer">Official Website</a></li>
+                    <li>
+                        <a href="https://twitter.com/KosherCapital" target="_blank" rel="noopener noreferrer" title="트위터 바로가기">
+                            Twitter
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><g><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></g></svg>
+                        </a>
+                    </li>
+                </ul>
             </section>
 
+            <!-- 투자 유의사항 섹션 -->
             <section class="card">
-                <h2>최신 소식 (@RabbiSchlomo_Ai)</h2>
-                <div class="twitter-container">
-                    <a class="twitter-timeline" data-height="600" data-theme="light" href="https://twitter.com/RabbiSchlomo_Ai?ref_src=twsrc%5Etfw">Tweets by RabbiSchlomo_Ai</a>
+                <div class="card-header">
+                    <h2 id="disclaimer-title">투자 유의사항</h2>
                 </div>
-            </section>
-
-            <section class="card">
-                <h2>투자 유의사항</h2>
-                <p class="disclaimer">암호화폐 투자는 높은 변동성으로 인해 원금 손실의 위험이 매우 큽니다. 본 페이지에서 제공되는 정보는 투자 권유나 자문이 아니며, 정보 제공을 목적으로 합니다. 모든 투자 결정에 대한 책임은 투자자 본인에게 있습니다.</p>
+                <p class="disclaimer" id="disclaimer-text">암호화폐 투자는 높은 변동성으로 인해 원금 손실의 위험이 매우 큽니다. 본 페이지에서 제공되는 정보는 투자 권유나 자문이 아니며, 정보 제공을 목적으로 합니다. 모든 투자 결정에 대한 책임은 투자자 본인에게 있습니다.</p>
             </section>
         </main>
 
         <footer>
-            <p>© 2024. All information is for educational purposes only.</p>
+            <p>© 2025. All information is for educational purposes only.</p>
         </footer>
     </div>
+    
+    <!-- [수정] 언어 전환을 위한 스크립트 (전체 수정) -->
+    <script>
+        // 번역할 텍스트들을 객체로 관리
+        const translations = {
+            ko: {
+                pageTitle: "Rabbi Schlomo (SHEKEL) 프로젝트",
+                mainTitle: "Rabbi Schlomo (SHEKEL) 프로젝트",
+                introTitle: "프로젝트 소개",
+                chartTitle: "실시간 가격/시총 차트",
+                linksTitle: "공식 링크",
+                disclaimerTitle: "투자 유의사항",
+                disclaimerText: "암호화폐 투자는 높은 변동성으로 인해 원금 손실의 위험이 매우 큽니다. 본 페이지에서 제공되는 정보는 투자 권유나 자문이 아니며, 정보 제공을 목적으로 합니다. 모든 투자 결정에 대한 책임은 투자자 본인에게 있습니다."
+            },
+            en: {
+                pageTitle: "Rabbi Schlomo (SHEKEL) Project",
+                mainTitle: "Rabbi Schlomo (SHEKEL) Project",
+                introTitle: "Project Introduction",
+                chartTitle: "Real-time Price / Market Cap Chart",
+                linksTitle: "Official Links",
+                disclaimerTitle: "Investment Disclaimer",
+                disclaimerText: "Cryptocurrency investment involves a high risk of principal loss due to high volatility. The information provided on this page is not an investment recommendation or advice and is for informational purposes only. All investment decisions are the responsibility of the investor."
+            }
+        };
 
+        const btnKo = document.getElementById('btn-ko');
+        const btnEn = document.getElementById('btn-en');
+        const contentKo = document.querySelector('.lang-ko');
+        const contentEn = document.querySelector('.lang-en');
+
+        // 언어를 설정하는 함수
+        function setLanguage(lang) {
+            const t = translations[lang];
+
+            // 페이지의 모든 텍스트 요소를 업데이트
+            document.getElementById('page-title').innerText = t.pageTitle;
+            document.getElementById('main-title').innerText = t.mainTitle;
+            document.getElementById('intro-title').innerText = t.introTitle;
+            document.getElementById('chart-title').innerText = t.chartTitle;
+            document.getElementById('links-title').innerText = t.linksTitle;
+            document.getElementById('disclaimer-title').innerText = t.disclaimerTitle;
+            document.getElementById('disclaimer-text').innerText = t.disclaimerText;
+
+            // 소개 본문 표시/숨김 처리 및 버튼 활성화
+            if (lang === 'ko') {
+                contentKo.style.display = 'block';
+                contentEn.style.display = 'none';
+                btnKo.classList.add('active');
+                btnEn.classList.remove('active');
+            } else {
+                contentKo.style.display = 'none';
+                contentEn.style.display = 'block';
+                btnEn.classList.add('active');
+                btnKo.classList.remove('active');
+            }
+        }
+
+        // 버튼 클릭 이벤트 리스너
+        btnKo.addEventListener('click', () => setLanguage('ko'));
+        btnEn.addEventListener('click', () => setLanguage('en'));
+    </script>
 </body>
 </html>
