@@ -14,7 +14,7 @@
             --secondary-color: #6c757d;
             --border-color: #dee2e6;
             --shadow-color: rgba(0, 0, 0, 0.08);
-            --favorite-color: #ffc107; /* 즐겨찾기 별 색상 */
+            --favorite-color: #ffc107;
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -90,14 +90,14 @@
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 1.5rem;
         }
-        .coin-grid .coin-link { /* a 태그 대신 클래스 사용 */
+        .coin-grid .coin-link {
             text-decoration: none;
             color: inherit;
         }
         
         /* 코인 카드 */
         .coin-card {
-            position: relative; /* 즐겨찾기 아이콘 위치 기준 */
+            position: relative;
             background-color: var(--card-bg);
             border-radius: 12px;
             padding: 1.5rem;
@@ -117,7 +117,7 @@
             font-size: 1.5rem;
             margin-top: 0;
             margin-bottom: 0.5rem;
-            padding-right: 30px; /* 아이콘과 겹치지 않도록 공간 확보 */
+            padding-right: 30px;
         }
         .coin-card p {
             font-size: 1rem;
@@ -126,27 +126,33 @@
             flex-grow: 1;
         }
         
-        /* 즐겨찾기 아이콘 */
+        /* --- [수정] 즐겨찾기 아이콘 스타일 --- */
         .bookmark-icon {
             position: absolute;
             top: 1.5rem;
             right: 1.5rem;
             cursor: pointer;
-            width: 24px;
-            height: 24px;
+            width: 20px; /* 크기 축소 */
+            height: 20px; /* 크기 축소 */
         }
         .bookmark-icon svg {
             width: 100%;
             height: 100%;
-            stroke: var(--secondary-color);
-            stroke-width: 2;
+            stroke: #adb5bd; /* 더 연한 회색으로 변경 */
+            stroke-width: 1.5; /* 선 두께 얇게 */
             fill: none;
             transition: fill 0.2s, stroke 0.2s;
         }
+        /* 마우스 올렸을 때 (즐겨찾기 안된 상태) */
+        .bookmark-icon:not(.favorited):hover svg {
+            stroke: var(--secondary-color); /* 살짝 진하게 */
+        }
+        /* 즐겨찾기 된 상태 */
         .bookmark-icon.favorited svg {
             fill: var(--favorite-color);
             stroke: var(--favorite-color);
         }
+        /* --- 수정 끝 --- */
 
         /* 푸터 */
         .footer {
@@ -172,7 +178,6 @@
         </section>
 
         <main class="coin-grid" id="coin-grid">
-            <!-- [중요] 각 카드 링크에 data-coin-id 속성 추가 (고유해야 함) -->
             <!-- Shekel 코인 카드 -->
             <a href="data/shekel.html" class="coin-link" data-coin-id="shekel">
                 <div class="coin-card">
@@ -237,9 +242,9 @@
             function toggleFavorite(coinId) {
                 const index = favorites.indexOf(coinId);
                 if (index > -1) {
-                    favorites.splice(index, 1); // 즐겨찾기 해제
+                    favorites.splice(index, 1);
                 } else {
-                    favorites.push(coinId); // 즐겨찾기 추가
+                    favorites.push(coinId);
                 }
                 saveFavorites();
                 updateCardAppearance();
@@ -271,12 +276,10 @@
 
                     let shouldShow = false;
                     if (favoritesViewActive) {
-                        // 즐겨찾기 모드일 때: 즐겨찾기이면서 검색어와 일치해야 함
                         if (isFavorite && matchesSearch) {
                             shouldShow = true;
                         }
                     } else {
-                        // 일반 모드일 때: 검색어와 일치하면 됨
                         if (matchesSearch) {
                             shouldShow = true;
                         }
@@ -287,21 +290,18 @@
             }
 
             // 4. 이벤트 리스너 설정
-            // 즐겨찾기 아이콘 클릭
             coinGrid.addEventListener('click', e => {
                 const bookmarkIcon = e.target.closest('.bookmark-icon');
                 if (bookmarkIcon) {
-                    e.preventDefault(); // 페이지 이동 방지
+                    e.preventDefault();
                     const coinLink = bookmarkIcon.closest('.coin-link');
                     const coinId = coinLink.dataset.coinId;
                     toggleFavorite(coinId);
                 }
             });
 
-            // 검색 입력
             searchInput.addEventListener('input', filterCards);
 
-            // 즐겨찾기 보기 버튼 클릭
             toggleFavoritesBtn.addEventListener('click', () => {
                 favoritesViewActive = !favoritesViewActive;
                 toggleFavoritesBtn.classList.toggle('active', favoritesViewActive);
