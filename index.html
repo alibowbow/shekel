@@ -11,8 +11,10 @@
             --card-bg: #ffffff;
             --text-color: #212529;
             --primary-color: #0d6efd;
+            --secondary-color: #6c757d;
             --border-color: #dee2e6;
             --shadow-color: rgba(0, 0, 0, 0.08);
+            --favorite-color: #ffc107; /* 즐겨찾기 별 색상 */
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -40,16 +42,18 @@
         }
         .header p {
             font-size: 1.25rem;
-            color: #6c757d;
+            color: var(--secondary-color);
             margin-top: 0.5rem;
         }
 
-        /* 검색 섹션 */
-        .search-section {
+        /* 필터링 섹션 */
+        .filter-section {
+            display: flex;
+            gap: 1rem;
             margin-bottom: 2.5rem;
         }
         #search-input {
-            width: 100%;
+            flex-grow: 1;
             padding: 1rem 1.5rem;
             font-size: 1.1rem;
             border: 1px solid var(--border-color);
@@ -62,6 +66,23 @@
             border-color: var(--primary-color);
             box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.25);
         }
+        #toggle-favorites {
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            background-color: var(--card-bg);
+            color: var(--secondary-color);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        #toggle-favorites.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
 
         /* 코인 그리드 */
         .coin-grid {
@@ -69,13 +90,14 @@
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 1.5rem;
         }
-        .coin-grid a {
+        .coin-grid .coin-link { /* a 태그 대신 클래스 사용 */
             text-decoration: none;
             color: inherit;
         }
         
         /* 코인 카드 */
         .coin-card {
+            position: relative; /* 즐겨찾기 아이콘 위치 기준 */
             background-color: var(--card-bg);
             border-radius: 12px;
             padding: 1.5rem;
@@ -95,12 +117,35 @@
             font-size: 1.5rem;
             margin-top: 0;
             margin-bottom: 0.5rem;
+            padding-right: 30px; /* 아이콘과 겹치지 않도록 공간 확보 */
         }
         .coin-card p {
             font-size: 1rem;
-            color: #6c757d;
+            color: var(--secondary-color);
             margin: 0;
-            flex-grow: 1; 
+            flex-grow: 1;
+        }
+        
+        /* 즐겨찾기 아이콘 */
+        .bookmark-icon {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+        }
+        .bookmark-icon svg {
+            width: 100%;
+            height: 100%;
+            stroke: var(--secondary-color);
+            stroke-width: 2;
+            fill: none;
+            transition: fill 0.2s, stroke 0.2s;
+        }
+        .bookmark-icon.favorited svg {
+            fill: var(--favorite-color);
+            stroke: var(--favorite-color);
         }
 
         /* 푸터 */
@@ -109,7 +154,7 @@
             margin-top: 4rem;
             padding-top: 2rem;
             border-top: 1px solid var(--border-color);
-            color: #6c757d;
+            color: var(--secondary-color);
         }
     </style>
 </head>
@@ -121,41 +166,45 @@
             <p>다양한 암호화폐 프로젝트를 탐색해 보세요.</p>
         </header>
 
-        <section class="search-section">
+        <section class="filter-section">
             <input type="search" id="search-input" placeholder="프로젝트 이름으로 검색...">
+            <button id="toggle-favorites">즐겨찾기 보기</button>
         </section>
 
         <main class="coin-grid" id="coin-grid">
+            <!-- [중요] 각 카드 링크에 data-coin-id 속성 추가 (고유해야 함) -->
             <!-- Shekel 코인 카드 -->
-            <a href="data/shekel.html">
+            <a href="data/shekel.html" class="coin-link" data-coin-id="shekel">
                 <div class="coin-card">
+                    <div class="bookmark-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                    </div>
                     <h2>Shekel (SHEKEL)</h2>
                     <p>AI 펀드 런치패드 플랫폼</p>
                 </div>
             </a>
 
             <!-- Anon 코인 카드 -->
-            <a href="data/anon.html">
+            <a href="data/anon.html" class="coin-link" data-coin-id="anon">
                 <div class="coin-card">
+                    <div class="bookmark-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                    </div>
                     <h2>Anon (ANON)</h2>
                     <p>AI 챗봇을 통해 DeFi 거래와 자산 관리를 쉽게 할 수 있는 탈중앙화 금융 플랫폼</p>
                 </div>
             </a>
 
-            <!-- [추가됨] Bink AI 코인 카드 -->
-            <a href="data/bink.html">
+            <!-- Bink AI 코인 카드 -->
+            <a href="data/bink.html" class="coin-link" data-coin-id="bink">
                 <div class="coin-card">
+                    <div class="bookmark-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                    </div>
                     <h2>Bink AI (BINK)</h2>
                     <p>BNB 체인 기반 DeFAI 자동화 플랫폼</p>
                 </div>
             </a>
-
-            <!-- 
-            [새로운 코인 추가 방법]
-            아래의 'a' 태그 블록을 복사하고, 
-            href="data/코인파일명.html", <h2>코인이름 (심볼)</h2>, <p>간단한 설명</p>
-            내용만 수정하면 새로운 카드가 추가됩니다.
-            -->
             
         </main>
 
@@ -165,24 +214,103 @@
     </div>
 
     <script>
-        // 실시간 검색 기능 구현
-        const searchInput = document.getElementById('search-input');
-        const coinGrid = document.getElementById('coin-grid');
-        const coinLinks = coinGrid.getElementsByTagName('a');
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('search-input');
+            const toggleFavoritesBtn = document.getElementById('toggle-favorites');
+            const coinGrid = document.getElementById('coin-grid');
+            const coinLinks = Array.from(coinGrid.querySelectorAll('.coin-link'));
+            const FAVORITES_KEY = 'cryptoExplorerFavorites';
 
-        searchInput.addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase();
+            let favorites = getFavorites();
+            let favoritesViewActive = false;
 
-            for (let i = 0; i < coinLinks.length; i++) {
-                const card = coinLinks[i];
-                const cardText = card.textContent.toLowerCase();
-                
-                if (cardText.includes(searchTerm)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
+            // 1. 즐겨찾기 상태 관리 함수
+            function getFavorites() {
+                const storedFavorites = localStorage.getItem(FAVORITES_KEY);
+                return storedFavorites ? JSON.parse(storedFavorites) : [];
             }
+
+            function saveFavorites() {
+                localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
+            }
+
+            function toggleFavorite(coinId) {
+                const index = favorites.indexOf(coinId);
+                if (index > -1) {
+                    favorites.splice(index, 1); // 즐겨찾기 해제
+                } else {
+                    favorites.push(coinId); // 즐겨찾기 추가
+                }
+                saveFavorites();
+                updateCardAppearance();
+            }
+
+            // 2. UI 업데이트 함수
+            function updateCardAppearance() {
+                coinLinks.forEach(link => {
+                    const coinId = link.dataset.coinId;
+                    const icon = link.querySelector('.bookmark-icon');
+                    if (favorites.includes(coinId)) {
+                        icon.classList.add('favorited');
+                    } else {
+                        icon.classList.remove('favorited');
+                    }
+                });
+            }
+            
+            // 3. 필터링 로직 함수
+            function filterCards() {
+                const searchTerm = searchInput.value.toLowerCase();
+                
+                coinLinks.forEach(link => {
+                    const coinId = link.dataset.coinId;
+                    const cardText = link.textContent.toLowerCase();
+                    
+                    const isFavorite = favorites.includes(coinId);
+                    const matchesSearch = cardText.includes(searchTerm);
+
+                    let shouldShow = false;
+                    if (favoritesViewActive) {
+                        // 즐겨찾기 모드일 때: 즐겨찾기이면서 검색어와 일치해야 함
+                        if (isFavorite && matchesSearch) {
+                            shouldShow = true;
+                        }
+                    } else {
+                        // 일반 모드일 때: 검색어와 일치하면 됨
+                        if (matchesSearch) {
+                            shouldShow = true;
+                        }
+                    }
+
+                    link.style.display = shouldShow ? 'block' : 'none';
+                });
+            }
+
+            // 4. 이벤트 리스너 설정
+            // 즐겨찾기 아이콘 클릭
+            coinGrid.addEventListener('click', e => {
+                const bookmarkIcon = e.target.closest('.bookmark-icon');
+                if (bookmarkIcon) {
+                    e.preventDefault(); // 페이지 이동 방지
+                    const coinLink = bookmarkIcon.closest('.coin-link');
+                    const coinId = coinLink.dataset.coinId;
+                    toggleFavorite(coinId);
+                }
+            });
+
+            // 검색 입력
+            searchInput.addEventListener('input', filterCards);
+
+            // 즐겨찾기 보기 버튼 클릭
+            toggleFavoritesBtn.addEventListener('click', () => {
+                favoritesViewActive = !favoritesViewActive;
+                toggleFavoritesBtn.classList.toggle('active', favoritesViewActive);
+                toggleFavoritesBtn.textContent = favoritesViewActive ? '모두 보기' : '즐겨찾기 보기';
+                filterCards();
+            });
+
+            // 5. 초기화
+            updateCardAppearance();
         });
     </script>
 
