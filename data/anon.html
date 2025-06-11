@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Hey Anon (ANON) 프로젝트</title>
+    <style>
+        /* 기본 스타일 */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 960px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 30px;
+        }
+        header h1 {
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin: 0;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+        .card h2 {
+            font-size: 1.8em;
+            color: #34495e;
+            margin-top: 0;
+            padding-bottom: 10px;
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 15px;
+        }
+        .card-header h2 {
+            border: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .lang-switcher {
+            margin-bottom: 25px;
+            text-align: right;
+        }
+        .lang-switcher button {
+            background-color: #f0f0f0; border: 1px solid #ccc; padding: 8px 16px;
+            cursor: pointer; border-radius: 5px; font-weight: bold;
+            margin-left: 5px; transition: background-color 0.3s, color 0.3s;
+        }
+        .lang-switcher button:hover { background-color: #e0e0e0; }
+        .lang-switcher button.active { background-color: #34495e; color: #ffffff; border-color: #34495e; }
+
+        .content-block h3 {
+            font-size: 1.5em; color: #2c3e50; margin-top: 25px;
+            border-bottom: 1px solid #eee; padding-bottom: 8px;
+        }
+        .content-block ul {
+            padding-left: 20px;
+        }
+        .content-block code {
+            background-color: #ecf0f1; padding: 2px 6px; border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace; word-break: break-all;
+        }
+        .content-block strong {
+            color: #2c3e50;
+        }
+        
+        .sector-tags { margin-top: 10px; }
+        .sector-tag {
+            display: inline-block; background-color: #e9eef1; color: #34495e;
+            padding: 4px 12px; border-radius: 15px; font-size: 0.9em; font-weight: 500;
+        }
+        
+        .official-links ul { list-style: none; padding: 0; }
+        .official-links li { margin-bottom: 15px; }
+        .official-links a {
+            display: inline-flex; align-items: center; text-decoration: none;
+            color: #3498db; font-weight: bold; font-size: 1.1em;
+        }
+        .official-links a:hover { text-decoration: underline; }
+        .official-links a svg { width: 20px; height: 20px; margin-left: 8px; fill: #3498db; }
+
+        .chart-container { position: relative; width: 100%; height: 600px; }
+        #geckoterminal-embed { width: 100%; height: 100%; border: none; }
+        .disclaimer {
+            font-size: 0.9em; color: #7f8c8d; background-color: #ecf0f1;
+            padding: 15px; border-left: 4px solid #7f8c8d; border-radius: 4px;
+        }
+        footer {
+            text-align: center; padding: 20px 0; margin-top: 30px;
+            font-size: 0.9em; color: #95a5a6;
+        }
+        @media (max-width: 768px) {
+            header h1 { font-size: 2em; }
+            .card h2 { font-size: 1.5em; }
+            .chart-container { height: 450px; }
+            .container { padding: 0 15px; }
+            .card-header { flex-direction: column; align-items: flex-start; }
+            .lang-switcher { width: 100%; text-align: right; margin-top: 10px; margin-bottom: 15px;}
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1 id="main-title">Hey Anon (ANON) 프로젝트</h1>
+        </header>
+
+        <main>
+            <!-- 프로젝트 소개 섹션 -->
+            <section class="card">
+                <div class="card-header">
+                    <h2 id="intro-title">프로젝트 소개</h2>
+                    <div class="lang-switcher">
+                        <button id="btn-ko" class="active">한국어</button>
+                        <button id="btn-en">English</button>
+                    </div>
+                </div>
+                <div class="content-block lang-ko">
+                    <h3>프로젝트 개요 및 컨셉</h3>
+                    <p>Hey Anon은 <strong>AI 기반 DeFi(탈중앙 금융) 프로토콜</strong>로, 대화형 AI 기술과 실시간 데이터 분석을 결합하여 복잡한 암호화폐 작업을 자동화합니다. 사용자는 자연어 명령만으로 크로스체인 자산 이동, 토큰 스왑, 스테이킹 등을 실행할 수 있습니다. 동시에 트위터, 텔레그램 등 여러 커뮤니티 채널의 정보를 실시간으로 수집 및 분석하여, DeFi 운영과 정보 파악을 하나의 플랫폼에서 해결해주는 <strong>차세대 DeFAI(DeFi + AI) 플랫폼</strong>을 목표로 합니다.</p>
+                    
+                    <h3>주요 기능 및 기술</h3>
+                    <p>Hey Anon은 자동화된 DeFi 실행, 크로스체인 지원, 다중 소스 데이터 수집이라는 세 가지 핵심 기능을 통해 차별화됩니다. 사용자는 "가스비가 10 Gwei 이하일 때 보상 수령"과 같은 조건부 명령을 내릴 수 있으며, AI 에이전트가 이를 자동으로 실행합니다. 또한 이더리움, 솔라나, 베이스 등 여러 블록체인을 지원하며 LayerZero 기술을 통해 체인 간 자산 이동을 간소화합니다. 나아가 소셜 미디어 여론, 개발 활동(GitHub) 등을 종합 분석하여 투자자에게 깊이 있는 인사이트를 제공합니다.</p>
+
+                    <h3>토큰 상세 정보</h3>
+                    <ul>
+                        <li><strong>토큰 이름:</strong> Hey Anon</li>
+                        <li><strong>심볼(Symbol):</strong> ANON</li>
+                        <li><strong>네트워크:</strong> 멀티체인 (Solana, EVM 등)</li>
+                        <li><strong>컨트랙트 주소 (Solana):</strong> <code>AeGBjqTeXiEgdAxU1ZhBEqmkXk6RuQNCXJWvdo4N4CBg</code></li>
+                        <li><strong>컨트랙트 주소 (EVM):</strong> <code>0x79bb22281a774395202958546a8ed8364e56e07c</code> (LayerZero OFT)</li>
+                        <li><strong>토큰 표준:</strong> SPL (Solana) / ERC-20 (EVM)</li>
+                        <li><strong>총 발행량:</strong> 21,000,000 ANON (고정)</li>
+                    </ul>
+
+                    <h3>코인 섹터</h3>
+                    <div class="sector-tags">
+                        <span class="sector-tag">DeFAI</span>
+                        <span class="sector-tag">AI</span>
+                    </div>
+
+                    <h3>토큰 활용 및 용도</h3>
+                    <p>ANON 토큰은 프로토콜의 방향성을 결정하는 핵심 거버넌스 토큰입니다. 보유자들은 프로토콜 업그레이드나 정책 변경에 대한 투표권을 행사할 수 있습니다. 또한, 플랫폼 내 AI 에이전트 서비스 이용 시 수수료를 할인받거나 프리미엄 기능에 접근하는 유틸리티 역할도 수행합니다. 특히 ANON 토큰을 스테이킹하면 보상으로 <strong>ANONs</strong>라는 별도의 토큰을 받는 2단계 모델을 통해 장기 보유를 장려하고 생태계 참여를 유도합니다.</p>
+                </div>
+                <div class="content-block lang-en" style="display: none;">
+                    <h3>Project Overview and Concept</h3>
+                    <p>Hey Anon is an <strong>AI-powered DeFi (Decentralized Finance) protocol</strong> that automates complex cryptocurrency tasks by combining conversational AI with real-time data analysis. Users can execute cross-chain asset transfers, token swaps, and staking using natural language commands. Simultaneously, it gathers and analyzes real-time information from various community channels like Twitter and Telegram, aiming to be a <strong>next-generation DeFAI (DeFi + AI) platform</strong> that provides a single solution for both DeFi operations and information gathering.</p>
+                    
+                    <h3>Key Features and Technology</h3>
+                    <p>Hey Anon differentiates itself through three core features: automated DeFi execution, cross-chain support, and multi-source data aggregation. Users can issue conditional commands like "claim rewards when gas fees are below 10 Gwei," which the AI agent executes automatically. It also supports multiple blockchains, including Ethereum, Solana, and Base, simplifying asset transfers via LayerZero technology. Furthermore, it provides deep insights to investors by analyzing social media sentiment, development activity (GitHub), and more.</p>
+
+                    <h3>Token Details</h3>
+                    <ul>
+                        <li><strong>Token Name:</strong> Hey Anon</li>
+                        <li><strong>Symbol:</strong> ANON</li>
+                        <li><strong>Network:</strong> Multi-chain (Solana, EVM, etc.)</li>
+                        <li><strong>Contract Address (Solana):</strong> <code>AeGBjqTeXiEgdAxU1ZhBEqmkXk6RuQNCXJWvdo4N4CBg</code></li>
+                        <li><strong>Contract Address (EVM):</strong> <code>0x79bb22281a774395202958546a8ed8364e56e07c</code> (LayerZero OFT)</li>
+                        <li><strong>Token Standard:</strong> SPL (Solana) / ERC-20 (EVM)</li>
+                        <li><strong>Total Supply:</strong> 21,000,000 ANON (Fixed)</li>
+                    </ul>
+                    
+                    <h3>Coin Sector</h3>
+                    <div class="sector-tags">
+                        <span class="sector-tag">DeFAI</span>
+                        <span class="sector-tag">AI</span>
+                    </div>
+
+                    <h3>Use Cases and Utility of ANON</h3>
+                    <p>The ANON token is the core governance token that determines the protocol's direction. Holders can exercise voting rights on protocol upgrades and policy changes. It also serves as a utility token, providing fee discounts for using AI agent services or accessing premium features. A two-stage model encourages long-term holding and ecosystem participation by rewarding users with a separate token, <strong>ANONs</strong>, for staking their ANON tokens.</p>
+                </div>
+            </section>
+
+            <!-- 팀 및 파트너십 섹션 -->
+            <section class="card">
+                <div class="card-header">
+                    <h2 id="team-title">팀 및 파트너십</h2>
+                </div>
+                <div class="content-block lang-ko">
+                    <h3>핵심 팀 구성</h3>
+                    <p>이 프로젝트는 원더랜드(Wonderland), 아브라카다브라 머니(Abracadabra.Money) 등을 이끌었던 유명 DeFi 베테랑 <strong>다니엘레 세스타(Daniele Sesta)</strong>가 설립했습니다. 그는 "AI를 DeFi에 통합하여 금융 자율성을 실현한다"는 비전 아래 DeFAI(DeFi + AI)라는 새로운 영역을 개척하고 있습니다.</p>
+                    <h3>전략적 파트너십 및 투자</h3>
+                    <p>Hey Anon은 웹3 전문 투자사이자 마켓메이커인 <strong>DWF Labs</strong>로부터 전략적 투자를 유치했습니다. 이 파트너십을 통해 자금 지원은 물론, 글로벌 네트워크와 전문성을 확보하여 기술 개발과 생태계 확장에 큰 힘을 얻고 있습니다.</p>
+                </div>
+                <div class="content-block lang-en" style="display: none;">
+                    <h3>Core Team Composition</h3>
+                    <p>The project was founded by <strong>Daniele Sesta</strong>, a renowned DeFi veteran who previously led successful projects like Wonderland and Abracadabra.Money. He is pioneering the new field of DeFAI (DeFi + AI) with the vision of "achieving financial autonomy by integrating AI into DeFi."</p>
+                    <h3>Strategic Partnership & Investment</h3>
+                    <p>Hey Anon has secured a strategic investment from <strong>DWF Labs</strong>, a specialized Web3 investment firm and market maker. Through this partnership, the project has gained not only funding but also access to a global network and expertise, providing significant momentum for technological development and ecosystem expansion.</p>
+                </div>
+            </section>
+
+            <!-- 기술 및 생태계 섹션 -->
+            <section class="card">
+                <div class="card-header">
+                    <h2 id="tech-title">기술 및 생태계</h2>
+                </div>
+                <div class="content-block lang-ko">
+                    <h3>멀티체인 아키텍처</h3>
+                    <p>Hey Anon은 <strong>LayerZero</strong>의 OFT(Omnichain Fungible Token) 표준을 활용하여 이더리움, 솔라나, 아비트럼, 베이스 등 여러 블록체인에서 원활하게 작동합니다. 이를 통해 사용자는 복잡한 과정 없이 자산을 여러 체인으로 손쉽게 이동시킬 수 있습니다.</p>
+                    <h3>주요 통합 프로토콜</h3>
+                    <p>플랫폼은 다양한 주요 DeFi 프로토콜과 통합되어 있습니다. 이를 통해 사용자는 하나의 인터페이스에서 여러 서비스를 이용할 수 있습니다.</p>
+                    <ul>
+                        <li><strong>대출/예치:</strong> Aave, Spark, Venus, Kamino</li>
+                        <li><strong>DEX 및 애그리게이터:</strong> 0x, Odos, Raydium, Kyber Network</li>
+                        <li><strong>스테이킹:</strong> Jito, Marinade Finance, WAGMI DEX</li>
+                        <li><strong>기타:</strong> GMX (파생상품), Pyth (가격 오라클)</li>
+                    </ul>
+                    <h3>AI 에이전트: Gemma</h3>
+                    <p><strong>Gemma</strong>는 Hey Anon의 자체 AI 리서치 에이전트입니다. 온체인 데이터와 소셜 미디어 여론 등 오프체인 정보를 종합 분석하여 사용자에게 "지난 7일간 ANON에 대한 트위터 감성은?"과 같은 복합적인 질문에 대한 통찰력 있는 답변을 제공합니다.</p>
+                </div>
+                <div class="content-block lang-en" style="display: none;">
+                    <h3>Multi-chain Architecture</h3>
+                    <p>Hey Anon utilizes <strong>LayerZero</strong>'s OFT (Omnichain Fungible Token) standard to operate seamlessly across multiple blockchains, including Ethereum, Solana, Arbitrum, and Base. This allows users to easily transfer assets between chains without complex procedures.</p>
+                    <h3>Key Integrated Protocols</h3>
+                    <p>The platform is integrated with various major DeFi protocols, allowing users to access multiple services from a single interface.</p>
+                    <ul>
+                        <li><strong>Lending/Borrowing:</strong> Aave, Spark, Venus, Kamino</li>
+                        <li><strong>DEX & Aggregators:</strong> 0x, Odos, Raydium, Kyber Network</li>
+                        <li><strong>Staking:</strong> Jito, Marinade Finance, WAGMI DEX</li>
+                        <li><strong>Others:</strong> GMX (Derivatives), Pyth (Price Oracle)</li>
+                    </ul>
+                    <h3>AI Agent: Gemma</h3>
+                    <p><strong>Gemma</strong> is Hey Anon's proprietary AI research agent. It comprehensively analyzes on-chain data and off-chain information like social media sentiment to provide insightful answers to complex user queries, such as "What is the Twitter sentiment for ANON over the last 7 days?"</p>
+                </div>
+            </section>
+            
+            <!-- 실시간 가격/시총 차트 섹션 -->
+            <section class="card">
+                <div class="card-header">
+                    <h2 id="chart-title">실시간 가격/시총 차트</h2>
+                </div>
+                <div class="chart-container">
+                    <iframe height="100%" width="100%" id="geckoterminal-embed" title="GeckoTerminal Embed" src="https://www.geckoterminal.com/ko/solana/pools/AeGBjqTeXiEgdAxU1ZhBEqmkXk6RuQNCXJWvdo4N4CBg?embed=1&info=0&swaps=0&grayscale=0&light_chart=0&chart_type=price&resolution=1d" frameborder="0" allow="clipboard-write" allowfullscreen></iframe>
+                </div>
+            </section>
+            
+            <!-- 공식 링크 섹션 -->
+            <section class="card official-links">
+                <div class="card-header">
+                    <h2 id="links-title">공식 링크 및 커뮤니티</h2>
+                </div>
+                <ul>
+                    <li><a href="https://heyanon.ai/" target="_blank" rel="noopener noreferrer">Official Website</a></li>
+                    <li><a href="https://t.me/anon_club" target="_blank" rel="noopener noreferrer">Official Telegram</a></li>
+                    <li>
+                        <a href="https://x.com/HeyAnonai" target="_blank" rel="noopener noreferrer" title="트위터 바로가기">
+                            Twitter
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><g><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></g></svg>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- 리스크 요인 및 투자 유의사항 섹션 -->
+            <section class="card">
+                <div class="card-header">
+                    <h2 id="risk-title">리스크 요인 및 투자 유의사항</h2>
+                </div>
+                <div class="content-block lang-ko">
+                    <p>Hey Anon은 혁신적인 만큼 여러 리스크를 내포합니다. 투자 결정 전 아래 사항을 신중히 고려하시기 바랍니다.</p>
+                    <ul>
+                        <li><strong>토크노믹스 리스크:</strong> 팀과 초기 투자자 물량의 집중도가 높아 잠재적 매도 압력이 존재할 수 있습니다.</li>
+                        <li><strong>기술적 리스크:</strong> 복잡한 스마트 컨트랙트의 잠재적 취약점, 외부 프로토콜(LayerZero 등) 의존성, AI의 명령 해석 오류 가능성이 있습니다.</li>
+                        <li><strong>팀 리스크:</strong> 설립자 다니엘레 세스타의 과거 프로젝트 관련 논란이 있으며, 이는 프로젝트 평판에 영향을 줄 수 있습니다.</li>
+                        <li><strong>시장 및 규제 리스크:</strong> DeFAI 분야의 경쟁 구도가 불확실하며, 향후 AI 금융 서비스에 대한 규제가 강화될 수 있습니다.</li>
+                    </ul>
+                    <p class="disclaimer" id="disclaimer-text">암호화폐 투자는 높은 변동성으로 인해 원금 손실의 위험이 매우 큽니다. 본 페이지에서 제공되는 정보는 투자 권유나 자문이 아니며, 정보 제공을 목적으로 합니다. 모든 투자 결정에 대한 책임은 투자자 본인에게 있습니다.</p>
+                </div>
+                <div class="content-block lang-en" style="display: none;">
+                    <p>As an innovative project, Hey Anon carries several risks. Please consider the following factors carefully before making any investment decisions.</p>
+                    <ul>
+                        <li><strong>Tokenomics Risk:</strong> A high concentration of tokens held by the team and early investors may create potential sell pressure.</li>
+                        <li><strong>Technical Risk:</strong> Potential vulnerabilities in complex smart contracts, dependency on external protocols (like LayerZero), and the possibility of AI misinterpreting commands exist.</li>
+                        <li><strong>Team Risk:</strong> Founder Daniele Sesta's past project-related controversies could impact the project's reputation.</li>
+                        <li><strong>Market & Regulatory Risk:</strong> The competitive landscape for DeFAI is uncertain, and future regulations on AI-driven financial services could be strengthened.</li>
+                    </ul>
+                    <p class="disclaimer" id="disclaimer-text-en">Cryptocurrency investment involves a high risk of principal loss due to high volatility. The information provided on this page is not an investment recommendation or advice and is for informational purposes only. All investment decisions are the responsibility of the investor.</p>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>© 2025. All information is for educational purposes only.</p>
+        </footer>
+    </div>
+    
+    <!-- 언어 전환을 위한 스크립트 -->
+    <script>
+        const translations = {
+            ko: {
+                pageTitle: "Hey Anon (ANON) 프로젝트",
+                mainTitle: "Hey Anon (ANON) 프로젝트",
+                introTitle: "프로젝트 소개",
+                teamTitle: "팀 및 파트너십",
+                techTitle: "기술 및 생태계",
+                chartTitle: "실시간 가격/시총 차트",
+                marketTitle: "시장 현황 및 거래소",
+                linksTitle: "공식 링크 및 커뮤니티",
+                riskTitle: "리스크 요인 및 투자 유의사항",
+                disclaimerText: "암호화폐 투자는 높은 변동성으로 인해 원금 손실의 위험이 매우 큽니다. 본 페이지에서 제공되는 정보는 투자 권유나 자문이 아니며, 정보 제공을 목적으로 합니다. 모든 투자 결정에 대한 책임은 투자자 본인에게 있습니다."
+            },
+            en: {
+                pageTitle: "Hey Anon (ANON) Project",
+                mainTitle: "Hey Anon (ANON) Project",
+                introTitle: "Project Introduction",
+                teamTitle: "Team & Partnerships",
+                techTitle: "Technology & Ecosystem",
+                chartTitle: "Real-time Price / Market Cap Chart",
+                marketTitle: "Market Status & Exchanges",
+                linksTitle: "Official Links & Community",
+                riskTitle: "Risk Factors & Investment Disclaimer",
+                disclaimerText: "Cryptocurrency investment involves a high risk of principal loss due to high volatility. The information provided on this page is not an investment recommendation or advice and is for informational purposes only. All investment decisions are the responsibility of the investor."
+            }
+        };
+
+        const btnKo = document.getElementById('btn-ko');
+        const btnEn = document.getElementById('btn-en');
+        const contentsKo = document.querySelectorAll('.lang-ko');
+        const contentsEn = document.querySelectorAll('.lang-en');
+
+        function setLanguage(lang) {
+            const t = translations[lang];
+
+            // 모든 텍스트 ID 업데이트
+            document.getElementById('page-title').innerText = t.pageTitle;
+            document.getElementById('main-title').innerText = t.mainTitle;
+            document.getElementById('intro-title').innerText = t.introTitle;
+            document.getElementById('team-title').innerText = t.teamTitle;
+            document.getElementById('tech-title').innerText = t.techTitle;
+            document.getElementById('chart-title').innerText = t.chartTitle;
+            document.getElementById('market-title').innerText = t.marketTitle;
+            document.getElementById('links-title').innerText = t.linksTitle;
+            document.getElementById('risk-title').innerText = t.riskTitle;
+            
+            // 모든 콘텐츠 블록의 디스플레이 속성 변경
+            if (lang === 'ko') {
+                contentsKo.forEach(el => el.style.display = 'block');
+                contentsEn.forEach(el => el.style.display = 'none');
+                btnKo.classList.add('active');
+                btnEn.classList.remove('active');
+                // 한국어 disclaimer 업데이트
+                document.querySelector('.lang-ko .disclaimer').innerText = t.disclaimerText;
+            } else {
+                contentsKo.forEach(el => el.style.display = 'none');
+                contentsEn.forEach(el => el.style.display = 'block');
+                btnEn.classList.add('active');
+                btnKo.classList.remove('active');
+                // 영어 disclaimer 업데이트
+                document.querySelector('.lang-en .disclaimer').innerText = t.disclaimerText;
+            }
+        }
+
+        btnKo.addEventListener('click', () => setLanguage('ko'));
+        btnEn.addEventListener('click', () => setLanguage('en'));
+
+        // 초기 로드 시 기본 언어 설정
+        document.addEventListener('DOMContentLoaded', () => {
+            setLanguage('ko');
+        });
+    </script>
+</body>
+</html>
