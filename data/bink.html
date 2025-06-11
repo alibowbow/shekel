@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Bink AI (BINK) 프로젝트</title>
+    <style>
+        /* 기본 스타일 */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 960px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        header {
+            position: relative; /* 홈 버튼 위치를 위해 추가 */
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 30px;
+        }
+        /* [추가] 홈 버튼 스타일 */
+        .home-button {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            text-decoration: none;
+            background-color: #e9eef1;
+            color: #34495e;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+        .home-button:hover {
+            background-color: #dce3e8;
+        }
+        header h1 {
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin: 0;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+        .card h2 {
+            font-size: 1.8em;
+            color: #34495e;
+            margin-top: 0;
+            padding-bottom: 10px;
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 15px;
+        }
+        .card-header h2 {
+            border: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .lang-switcher {
+            margin-bottom: 25px;
+            text-align: right;
+        }
+        .lang-switcher button {
+            background-color: #f0f0f0; border: 1px solid #ccc; padding: 8px 16px;
+            cursor: pointer; border-radius: 5px; font-weight: bold;
+            margin-left: 5px; transition: background-color 0.3s, color 0.3s;
+        }
+        .lang-switcher button:hover { background-color: #e0e0e0; }
+        .lang-switcher button.active { background-color: #34495e; color: #ffffff; border-color: #34495e; }
+
+        .content-block h3 {
+            font-size: 1.5em; color: #2c3e50; margin-top: 25px;
+            border-bottom: 1px solid #eee; padding-bottom: 8px;
+        }
+        .content-block ul { padding-left: 20px; }
+        .content-block code {
+            background-color: #ecf0f1; padding: 2px 6px; border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace; word-break: break-all;
+        }
+        .content-block strong { color: #2c3e50; }
+        
+        .sector-tags { margin-top: 10px; }
+        .sector-tag {
+            display: inline-block; background-color: #e9eef1; color: #34495e;
+            padding: 4px 12px; border-radius: 15px; font-size: 0.9em; font-weight: 500;
+        }
+        
+        .official-links ul { list-style: none; padding: 0; }
+        .official-links li { margin-bottom: 15px; }
+        .official-links a {
+            display: inline-flex; align-items: center; text-decoration: none;
+            color: #3498db; font-weight: bold; font-size: 1.1em;
+        }
+        .official-links a:hover { text-decoration: underline; }
+        .official-links a svg { width: 20px; height: 20px; margin-left: 8px; fill: #3498db; }
+
+        .chart-container { position: relative; width: 100%; height: 600px; }
+        #geckoterminal-embed { width: 100%; height: 100%; border: none; }
+        .disclaimer {
+            font-size: 0.9em; color: #7f8c8d; background-color: #ecf0f1;
+            padding: 15px; border-left: 4px solid #7f8c8d; border-radius: 4px;
+        }
+        footer {
+            text-align: center; padding: 20px 0; margin-top: 30px;
+            font-size: 0.9em; color: #95a5a6;
+        }
+        @media (max-width: 768px) {
+            header { padding-top: 60px; } /* 헤더 공간 확보 */
+            .home-button { top: 15px; left: 0; }
+            header h1 { font-size: 2em; }
+            .card h2 { font-size: 1.5em; }
+            .chart-container { height: 450px; }
+            .container { padding: 0 15px; }
+            .card-header { flex-direction: column; align-items: flex-start; }
+            .lang-switcher { width: 100%; text-align: right; margin-top: 10px; margin-bottom: 15px;}
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <a href="../index.html" class="home-button">← 홈으로</a>
+            <h1 id="main-title">Bink AI (BINK) 프로젝트</h1>
+        </header>
+
+        <main>
+            <!-- 프로젝트 소개 섹션 -->
+            <section class="card">
+                <div class="card-header">
+                    <h2 id="intro-title">프로젝트 소개</h2>
+                    <div class="lang-switcher">
+                        <button id="btn-ko" class="active">한국어</button>
+                        <button id="btn-en">English</button>
+                    </div>
+                </div>
+                <div class="content-block lang-ko">
+                    <h3>프로젝트 개요 및 컨셉</h3>
+                    <p>Bink AI는 <strong>BNB 체인 기반의 DeFAI(DeFi + AI) 플랫폼</strong>으로, 시장 모니터링, 자산 분석, 자동화된 스왑, 크로스체인 브릿징 등 다양한 DeFi 작업을 AI를 통해 간소화합니다. 사용자는 텔레그램 봇이나 X(트위터) 같은 인터페이스를 통해 자연어로 명령을 내려 복잡한 금융 활동을 손쉽게 수행할 수 있습니다. 거래 효율을 높이고 DeFi 프로세스를 단순화하여, 일반 투자자와 개발자 모두를 위한 <strong>다용도 AI 금융 툴</strong>을 제공하는 것을 목표로 합니다.</p>
+                    
+                    <h3>토큰 상세 정보</h3>
+                    <ul>
+                        <li><strong>토큰 이름:</strong> Bink AI</li>
+                        <li><strong>심볼(Symbol):</strong> BINK</li>
+                        <li><strong>네트워크:</strong> BNB Smart Chain (BEP-20)</li>
+                        <li><strong>컨트랙트 주소:</strong> <code>0x5fdfaFd107Fc267bD6d6B1C08fcafb8d31394ba1</code></li>
+                        <li><strong>총 발행량:</strong> 1,000,000,000 BINK (10억 개)</li>
+                        <li><strong>유통량:</strong> 약 862,950,000 BINK (초기 소각 물량 제외)</li>
+                    </ul>
+
+                    <h3>코인 섹터</h3>
+                    <div class="sector-tags">
+                        <span class="sector-tag">DeFAI</span>
+                        <span class="sector-tag">AI</span>
+                        <span class="sector-tag">BNB Chain</span>
+                    </div>
+
+                    <h3>토큰 활용 및 용도</h3>
+                    <p>BINK 토큰은 Bink AI 생태계 내에서 다양한 유틸리티를 가집니다. 플랫폼의 프리미엄 기능 접근, AI 에이전트 서비스 수수료 할인 등에 사용되며, 향후 거버넌스가 도입되면 프로토콜의 주요 의사결정에 참여하는 투표권으로도 활용될 예정입니다.</p>
+                </div>
+                <div class="content-block lang-en" style="display: none;">
+                    <h3>Project Overview and Concept</h3>
+                    <p>Bink AI is a <strong>DeFAI (DeFi + AI) platform on the BNB Chain</strong> that simplifies various DeFi tasks like market monitoring, asset analysis, automated swaps, and cross-chain bridging through AI. Users can easily perform complex financial activities with natural language commands via interfaces like Telegram bots or X (Twitter). The project aims to provide a <strong>versatile AI financial toolkit</strong> for both regular investors and developers by enhancing trading efficiency and streamlining DeFi processes.</p>
+                    
+                    <h3>Token Details</h3>
+                    <ul>
+                        <li><strong>Token Name:</strong> Bink AI</li>
+                        <li><strong>Symbol:</strong> BINK</li>
+                        <li><strong>Network:</strong> BNB Smart Chain (BEP-20)</li>
+                        <li><strong>Contract Address:</strong> <code>0x5fdfaFd107Fc267bD6d6B1C08fcafb8d31394ba1</code></li>
+                        <li><strong>Total Supply:</strong> 1,000,000,000 BINK (1 billion)</li>
+                        <li><strong>Circulating Supply:</strong> Approx. 862,950,000 BINK (excluding initial burn)</li>
+                    </ul>
+                    
+                    <h3>Coin Sector</h3>
+                    <div class="sector-tags">
+                        <span class="sector-tag">DeFAI</span>
+                        <span class="sector-tag">AI</span>
+                        <span class="sector-tag">BNB Chain</span>
+                    </div>
+
+                    <h3>Use Cases and Utility of BINK</h3>
+                    <p>The BINK token has various utilities within the Bink AI ecosystem. It is used for accessing premium platform features and receiving discounts on AI agent services. With the future introduction of governance, it will also serve as a voting token for key protocol decisions.</p>
+                </div>
+            </section>
+
+            <!-- 기술 및 생태계 섹션 -->
+            <section class="card">
+                <div class="card-header">
+                    <h2 id="tech-title">기술 및 생태계</h2>
+                </div>
+                <div class="content-block lang-ko">
+                    <h3>핵심 기술: BinkOS</h3>
+                    <p>Bink AI의 핵심은 <strong>BinkOS</strong>라는 AI 통합 DeFi 운영체제입니다. 오픈 소스로 공개된 이 프레임워크는 플러그인 아키텍처를 채택하여 모듈식 확장이 용이하며, TypeScript로 주로 작성되었습니다. 개발자들은 BinkOS를 통해 코딩 지식 없이도 온체인 AI 에이전트를 쉽게 구축하고 배포할 수 있습니다.</p>
+                    <h3>주요 기능</h3>
+                    <ul>
+                        <li><strong>자동화된 트레이딩:</strong> PancakeSwap, Uniswap, 1inch 등 여러 DEX와 통합하여 최적의 가격과 경로를 찾아 거래를 실행합니다.</li>
+                        <li><strong>크로스체인 지원:</strong> Orbiter Finance와 같은 브릿지를 통해 BNB 체인, 이더리움, 솔라나 등 여러 네트워크 간 자산 이동을 지원합니다.</li>
+                        <li><strong>데이터 분석 및 AI:</strong> 가격 예측, 시장 트렌드 분석, 포트폴리오 최적화 등 AI 기반의 고도화된 분석 기능을 제공합니다.</li>
+                        <li><strong>보안:</strong> 지갑 암호화, 다중 인증(MFA), 트랜잭션 모니터링 등 강력한 보안 장치를 내장하고 있습니다.</li>
+                    </ul>
+                </div>
+                <div class="content-block lang-en" style="display: none;">
+                    <h3>Core Technology: BinkOS</h3>
+                    <p>At the core of Bink AI is <strong>BinkOS</strong>, an AI-integrated DeFi operating system. This open-source framework features a plugin architecture for easy modular expansion and is primarily written in TypeScript. BinkOS enables developers to build and deploy on-chain AI agents without extensive coding knowledge.</p>
+                    <h3>Key Features</h3>
+                    <ul>
+                        <li><strong>Automated Trading:</strong> Executes trades by finding optimal prices and routes through integration with multiple DEXs like PancakeSwap, Uniswap, and 1inch.</li>
+                        <li><strong>Cross-Chain Support:</strong> Supports asset transfers between various networks, including BNB Chain, Ethereum, and Solana, via bridges like Orbiter Finance.</li>
+                        <li><strong>Data Analysis & AI:</strong> Provides advanced AI-based analytical functions such as price prediction, market trend analysis, and portfolio optimization.</li>
+                        <li><strong>Security:</strong> Incorporates robust security measures, including wallet encryption, Multi-Factor Authentication (MFA), and transaction monitoring.</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- 팀 및 파트너십 섹션 -->
+            <section class="card">
+                <div class="card-header">
+                    <h2 id="team-title">팀 및 파트너십</h2>
+                </div>
+                <div class="content-block lang-ko">
+                    <p>Bink AI 팀은 구체적인 신원이 공개되지 않았으나, BNB 체인과의 긴밀한 협력 관계를 통해 기술력을 입증했습니다. 이 프로젝트는 <strong>BNB 체인의 AI 해커톤</strong>에서 상위 3개 팀으로 선정되어 5만 달러의 지원금과 엑셀러레이팅 지원을 확보했습니다. 또한, BNB 체인의 <strong>밈 토큰 유동성 지원 프로그램</strong>에도 선정되어 PancakeSwap 유동성 풀에 영구적인 유동성을 공급받는 등 BNB 생태계의 강력한 지원을 받고 있습니다.</p>
+                </div>
+                <div class="content-block lang-en" style="display: none;">
+                    <p>While the Bink AI team remains anonymous, they have proven their technical capabilities through a close collaboration with BNB Chain. The project was selected as one of the top 3 teams in the <strong>BNB Chain AI Hackathon</strong>, securing a $50,000 grant and accelerator support. Additionally, it was chosen for the <strong>Meme Token Liquidity Support Program</strong> by BNB Chain, receiving permanent liquidity for its PancakeSwap pool, highlighting strong support from the BNB ecosystem.</p>
+                </div>
+            </section>
+
+            <!-- 실시간 가격/시총 차트 섹션 -->
+            <section class="card">
+                <div class="card-header">
+                    <h2 id="chart-title">실시간 가격/시총 차트</h2>
+                </div>
+                <div class="chart-container">
+                    <iframe height="100%" width="100%" id="geckoterminal-embed" title="GeckoTerminal Embed" src="https://www.geckoterminal.com/ko/bnb-chain/pools/0x5fdfaFd107Fc267bD6d6B1C08fcafb8d31394ba1?embed=1&info=0&swaps=0&grayscale=0&light_chart=0&chart_type=price&resolution=1d" frameborder="0" allow="clipboard-write" allowfullscreen></iframe>
+                </div>
+            </section>
+            
+            <!-- 공식 링크 섹션 -->
+            <section class="card official-links">
+                <div class="card-header">
+                    <h2 id="links-title">공식 링크 및 커뮤니티</h2>
+                </div>
+                <ul>
+                    <li><a href="https://bink.ai/" target="_blank" rel="noopener noreferrer">Official Website</a></li>
+                    <li><a href="https://t.me/BinkAIchat" target="_blank" rel="noopener noreferrer">Official Telegram</a></li>
+                    <li>
+                        <a href="https://x.com/bink_ai" target="_blank" rel="noopener noreferrer" title="트위터 바로가기">
+                            Twitter
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><g><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></g></svg>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- 투자 유의사항 섹션 -->
+            <section class="card">
+                <div class="card-header">
+                    <h2 id="disclaimer-title">투자 유의사항</h2>
+                </div>
+                <p class="disclaimer" id="disclaimer-text">암호화폐 투자는 높은 변동성으로 인해 원금 손실의 위험이 매우 큽니다. 본 페이지에서 제공되는 정보는 투자 권유나 자문이 아니며, 정보 제공을 목적으로 합니다. 모든 투자 결정에 대한 책임은 투자자 본인에게 있습니다.</p>
+            </section>
+        </main>
+
+        <footer>
+            <p>© 2025. All information is for educational purposes only.</p>
+        </footer>
+    </div>
+    
+    <!-- 언어 전환을 위한 스크립트 -->
+    <script>
+        const translations = {
+            ko: {
+                pageTitle: "Bink AI (BINK) 프로젝트",
+                mainTitle: "Bink AI (BINK) 프로젝트",
+                homeButton: "← 홈으로",
+                introTitle: "프로젝트 소개",
+                techTitle: "기술 및 생태계",
+                teamTitle: "팀 및 파트너십",
+                chartTitle: "실시간 가격/시총 차트",
+                linksTitle: "공식 링크 및 커뮤니티",
+                disclaimerTitle: "투자 유의사항",
+                disclaimerText: "암호화폐 투자는 높은 변동성으로 인해 원금 손실의 위험이 매우 큽니다. 본 페이지에서 제공되는 정보는 투자 권유나 자문이 아니며, 정보 제공을 목적으로 합니다. 모든 투자 결정에 대한 책임은 투자자 본인에게 있습니다."
+            },
+            en: {
+                pageTitle: "Bink AI (BINK) Project",
+                mainTitle: "Bink AI (BINK) Project",
+                homeButton: "← Back to Home",
+                introTitle: "Project Introduction",
+                techTitle: "Technology & Ecosystem",
+                teamTitle: "Team & Partnerships",
+                chartTitle: "Real-time Price / Market Cap Chart",
+                linksTitle: "Official Links & Community",
+                disclaimerTitle: "Investment Disclaimer",
+                disclaimerText: "Cryptocurrency investment involves a high risk of principal loss due to high volatility. The information provided on this page is not an investment recommendation or advice and is for informational purposes only. All investment decisions are the responsibility of the investor."
+            }
+        };
+
+        const btnKo = document.getElementById('btn-ko');
+        const btnEn = document.getElementById('btn-en');
+        const contentsKo = document.querySelectorAll('.lang-ko');
+        const contentsEn = document.querySelectorAll('.lang-en');
+
+        function setLanguage(lang) {
+            const t = translations[lang];
+
+            document.getElementById('page-title').innerText = t.pageTitle;
+            document.getElementById('main-title').innerText = t.mainTitle;
+            document.querySelector('.home-button').innerText = t.homeButton;
+            document.getElementById('intro-title').innerText = t.introTitle;
+            document.getElementById('tech-title').innerText = t.techTitle;
+            document.getElementById('team-title').innerText = t.teamTitle;
+            document.getElementById('chart-title').innerText = t.chartTitle;
+            document.getElementById('links-title').innerText = t.linksTitle;
+            document.getElementById('disclaimer-title').innerText = t.disclaimerTitle;
+            document.getElementById('disclaimer-text').innerText = t.disclaimerText;
+
+            if (lang === 'ko') {
+                contentsKo.forEach(el => el.style.display = 'block');
+                contentsEn.forEach(el => el.style.display = 'none');
+                btnKo.classList.add('active');
+                btnEn.classList.remove('active');
+            } else {
+                contentsKo.forEach(el => el.style.display = 'none');
+                contentsEn.forEach(el => el.style.display = 'block');
+                btnEn.classList.add('active');
+                btnKo.classList.remove('active');
+            }
+        }
+
+        btnKo.addEventListener('click', () => setLanguage('ko'));
+        btnEn.addEventListener('click', () => setLanguage('en'));
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setLanguage('ko');
+        });
+    </script>
+</body>
+</html>
