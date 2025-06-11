@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Pythia (PYTHIA) 프로젝트</title>
+    <style>
+        /* 기본 스타일 */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 960px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        header {
+            position: relative;
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 30px;
+        }
+        .home-button {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            text-decoration: none;
+            background-color: #e9eef1;
+            color: #34495e;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+        .home-button:hover {
+            background-color: #dce3e8;
+        }
+        header h1 {
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin: 0;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+        .card h2 {
+            font-size: 1.8em;
+            color: #34495e;
+            margin-top: 0;
+            padding-bottom: 10px;
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 15px;
+        }
+        .card-header h2 {
+            border: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .lang-switcher {
+            margin-bottom: 25px;
+            text-align: right;
+        }
+        .lang-switcher button {
+            background-color: #f0f0f0; border: 1px solid #ccc; padding: 8px 16px;
+            cursor: pointer; border-radius: 5px; font-weight: bold;
+            margin-left: 5px; transition: background-color 0.3s, color 0.3s;
+        }
+        .lang-switcher button:hover { background-color: #e0e0e0; }
+        .lang-switcher button.active { background-color: #34495e; color: #ffffff; border-color: #34495e; }
+
+        .content-block h3 {
+            font-size: 1.5em; color: #2c3e50; margin-top: 25px;
+            border-bottom: 1px solid #eee; padding-bottom: 8px;
+        }
+        .content-block ul { padding-left: 20px; }
+        .content-block code {
+            background-color: #ecf0f1; padding: 2px 6px; border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace; word-break: break-all;
+        }
+        .content-block strong { color: #2c3e50; }
+        
+        .sector-tags { margin-top: 10px; }
+        .sector-tag {
+            display: inline-block; background-color: #e9eef1; color: #34495e;
+            padding: 4px 12px; border-radius: 15px; font-size: 0.9em; font-weight: 500;
+        }
+        
+        .official-links ul { list-style: none; padding: 0; }
+        .official-links li { margin-bottom: 15px; }
+        .official-links a {
+            display: inline-flex; align-items: center; text-decoration: none;
+            color: #3498db; font-weight: bold; font-size: 1.1em;
+        }
+        .official-links a:hover { text-decoration: underline; }
+        .official-links a svg { width: 20px; height: 20px; margin-left: 8px; fill: #3498db; }
+
+        .chart-container { position: relative; width: 100%; height: 600px; }
+        #
+terminal-embed { width: 100%; height: 100%; border: none; }
+        .disclaimer {
+            font-size: 0.9em; color: #7f8c8d; background-color: #ecf0f1;
+            padding: 15px; border-left: 4px solid #7f8c8d; border-radius: 4px;
+        }
+        footer {
+            text-align: center; padding: 20px 0; margin-top: 30px;
+            font-size: 0.9em; color: #95a5a6;
+        }
+        @media (max-width: 768px) {
+            header { padding-top: 60px; }
+            .home-button { top: 15px; left: 0; }
+            header h1 { font-size: 2em; }
+            .card h2 { font-size: 1.5em; }
+            .chart-container { height: 450px; }
+            .container { padding: 0 15px; }
+            .card-header { flex-direction: column; align-items: flex-start; }
+            .lang-switcher { width: 100%; text-align: right; margin-top: 10px; margin-bottom: 15px;}
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <a href="../index.html" class="home-button">← 홈으로</a>
+            <h1 id="main-title">Pythia (PYTHIA) 프로젝트</h1>
+        </header>
+
+        <main>
+            <!-- 프로젝트 소개 섹션 -->
+            <section class="card">
+                <div class="card-header">
+                    <h2 id="intro-title">프로젝트 소개</h2>
+                    <div class="lang-switcher">
+                        <button id="btn-ko" class="active">한국어</button>
+                        <button id="btn-en">English</button>
+                    </div>
+                </div>
+                <div class="content-block lang-ko">
+                    <h3>프로젝트 개요 및 컨셉</h3>
+                    <p>Pythia는 <strong>세계 최초로 인공지능과 뇌를 직접 연결한 실험용 쥐</strong>를 기반으로 한 혁신적인 DeSci(탈중앙화 과학) 프로젝트입니다. 러시아 Neiry Lab이 주도하는 이 실험에서, '피티아'라는 쥐의 뇌에 이식된 전극이 OpenAI의 GPT-4 모델과 연결되었습니다. AI가 인간의 질문을 뇌 자극 신호로 변환하면, 피티아는 버튼을 눌러 "예/아니오" 형태로 답변합니다. 현재 수백 개의 질문에 정확히 답할 수 있으며, 스트레스나 감정 같은 뇌파 데이터를 AI가 해석하는 실험도 진행 중입니다. 이 프로젝트는 단순한 동물 실험을 넘어, <strong>생물학적 지능과 인공지능의 공생(Symbiosis)</strong> 가능성을 탐구하는 것을 목표로 합니다.</p>
+
+                    <h3>장기 비전</h3>
+                    <p>Pythia의 궁극적인 비전은 <strong>인간의 지능 증강</strong>입니다. 동물 실험을 통해 축적된 BCI(뇌-컴퓨터 인터페이스) 기술을 인간에게 적용하여, 인류의 모든 지식을 두뇌와 직접 연결하는 미래를 꿈꿉니다. 단기적으로는 장애인 보조 기술 개발에 기여하고, 장기적으로는 인공지능과 결합한 인간이라는 새로운 지평을 여는 것이 목표입니다. 이 과정에서 Pythia는 크립토 커뮤니티의 힘으로 최첨단 과학 연구를 지원하고 그 혜택을 참여자에게 돌려주는 새로운 모델을 제시합니다.</p>
+                    
+                    <h3>토큰 상세 정보</h3>
+                    <ul>
+                        <li><strong>토큰 이름:</strong> Pythia</li>
+                        <li><strong>심볼(Symbol):</strong> PYTHIA</li>
+                        <li><strong>네트워크:</strong> Solana (SPL)</li>
+                        <li><strong>컨트랙트 주소:</strong> <code>(실제 주소를 여기에 입력하세요)</code></li>
+                        <li><strong>총 발행량:</strong> 1,000,000,000 PYTHIA (10억 개)</li>
+                        <li><strong>유통량:</strong> 약 999,980,000 PYTHIA (거의 전량 유통)</li>
+                        <li><strong>배포 방식:</strong> 100% 페어 런치(Fair Launch). 팀 물량 없이 커뮤니티에 완전 개방.</li>
+                    </ul>
+
+                    <h3>코인 섹터</h3>
+                    <div class="sector-tags">
+                        <span class="sector-tag">DeSci</span>
+                        <span class="sector-tag">AI</span>
+                        <span class="sector-tag">Meme</span>
+                        <span class="sector-tag">BCI</span>
+                    </div>
+
+                    <h3>토큰 활용 및 용도</h3>
+                    <p>PYTHIA 토큰은 단순한 밈 코인을 넘어, <strong>연구 자금 조달</strong>과 <strong>커뮤니티 보상</strong>이라는 핵심 유틸리티를 가집니다. 토큰 보유는 프로젝트의 성공에 간접적으로 투자하는 것을 의미하며, 유동성 풀은 연구 자금을 충당하는 자체 지속적 펀딩 메커니즘으로 기능합니다. 특히 <strong>"씽크투에어드롭(Think-to-Airdrop)"</strong> 프로그램은 사용자가 자신의 뇌파(EEG) 데이터를 제공하면 보상으로 토큰을 지급받는 혁신적인 모델입니다. 이는 뇌파 버전의 Move-to-Earn으로, 익명화된 뇌파 빅데이터를 확보하여 연구를 가속화하는 동시에, 명상 등 긍정적 뇌 활동에 더 많은 보상을 제공하여 사용자의 정신 건강 증진을 유도합니다. 또한 Neiry Lab의 뇌파 헤드셋 등 관련 제품 구매 시 할인 혜택을 제공하는 결제 수단으로도 사용됩니다.</p>
+                </div>
+                <div class="content-block lang-en" style="display: none;">
+                    <h3>Project Overview and Concept</h3>
+                    <p>Pythia is a groundbreaking DeSci (Decentralized Science) project based on the <strong>world's first experimental rat with a direct AI-to-brain interface</strong>. Led by Russia's Neiry Lab, the experiment connects a rat named 'Pythia' to OpenAI's GPT-4 model via brain electrodes. When the AI translates human questions into neural stimulation, Pythia responds with "yes/no" by pressing buttons. It can currently answer hundreds of questions correctly, and experiments are underway for the AI to interpret brainwave data like stress and emotions. Beyond a simple animal experiment, the project aims to explore the potential for <strong>symbiosis between biological and artificial intelligence</strong>.</p>
+                    
+                    <h3>Long-term Vision</h3>
+                    <p>Pythia's ultimate vision is <strong>human intelligence augmentation</strong>. It aims to apply the BCI (Brain-Computer Interface) technology accumulated through animal experiments to humans, envisioning a future where all of humanity's knowledge is directly connected to the brain. In the short term, it seeks to contribute to assistive technologies for people with disabilities, while the long-term goal is to open new frontiers for AI-integrated humans. Pythia presents a new model where the crypto community funds cutting-edge scientific research and shares in its benefits.</p>
+
+                    <h3>Token Details</h3>
+                    <ul>
+                        <li><strong>Token Name:</strong> Pythia</li>
+                        <li><strong>Symbol:</strong> PYTHIA</li>
+                        <li><strong>Network:</strong> Solana (SPL)</li>
+                        <li><strong>Contract Address:</strong> <code>(Enter the actual address here)</code></li>
+                        <li><strong>Total Supply:</strong> 1,000,000,000 PYTHIA (1 billion)</li>
+                        <li><strong>Circulating Supply:</strong> Approx. 999,980,000 PYTHIA (almost fully circulating)</li>
+                        <li><strong>Distribution:</strong> 100% Fair Launch. No team allocation, fully open to the community.</li>
+                    </ul>
+                    
+                    <h3>Coin Sector</h3>
+                    <div class="sector-tags">
+                        <span class="sector-tag">DeSci</span>
+                        <span class="sector-tag">AI</span>
+                        <span class="sector-tag">Meme</span>
+                        <span class="sector-tag">BCI</span>
+                    </div>
+
+                    <h3>Use Cases and Utility of PYTHIA</h3>
+                    <p>The PYTHIA token transcends being a simple meme coin by offering core utilities in <strong>research funding</strong> and <strong>community rewards</strong>. Holding the token signifies an indirect investment in the project's success, and its liquidity pool functions as a self-sustaining funding mechanism. The innovative <strong>"Think-to-Airdrop"</strong> program rewards users with tokens for providing their EEG (brainwave) data. This "Move-to-Earn for the brain" model accelerates research by crowdsourcing anonymized big data while incentivizing users' mental well-being by offering greater rewards for positive brain activities like meditation. It also serves as a payment method for Neiry Lab's products, offering discounts to holders.</p>
+                </div>
+            </section>
+
+            <!-- 팀 및 파트너십 섹션 -->
+            <section class="card">
+                <div class="card-header">
+                    <h2 id="team-title">팀 및 파트너십</h2>
+                </div>
+                <div class="content-block lang-ko">
+                    <p>프로젝트의 주체는 모스크바 국립대학교에 본부를 둔 <strong>Neiry Lab</strong>입니다. 150명 이상의 전문가로 구성된 이 뇌신경 공학 스타트업은 BCI 기술을 상용화한 경험이 있으며, 전 세계 45개국에 뇌파 헤드셋을 공급한 실적이 있습니다. 이들은 윤리위원회 승인 하에 연구를 수행하는 공인된 바이오테크 연구소입니다. 파트너십 측면에서는 Polkadot 계열 프라이버시 프로젝트인 <strong>Phala Network</strong>와 협력하여 뇌파 데이터의 프라이버시 보호를 모색하고 있으며, 주요 거래소인 <strong>MEXC, Gate.io</strong> 등에 신속히 상장하며 업계의 높은 관심을 입증했습니다.</p>
+                </div>
+                <div class="content-block lang-en" style="display: none;">
+                    <p>The project is led by <strong>Neiry Lab</strong>, a neuro-engineering startup with over 150 experts based at Moscow State University. The company has a proven track record of commercializing Brain-Computer Interface (BCI) technology and has supplied its brainwave headsets to 45 countries. As a recognized biotech lab, it conducts research under the approval of an ethics committee. In terms of partnerships, it is collaborating with the Polkadot-affiliated privacy project <strong>Phala Network</strong> to explore privacy protection for brainwave data and has demonstrated significant industry interest through rapid listings on major exchanges like <strong>MEXC and Gate.io</strong>.</p>
+                </div>
+            </section>
+
+            <!-- 실시간 가격/시총 차트 섹션 -->
+            <section class="card">
+                <div class="card-header">
+                    <h2 id="chart-title">실시간 가격/시총 차트</h2>
+                </div>
+                <div class="chart-container">
+                    <!-- [중요] 아래 주소의 'PYTHIA_CONTRACT_ADDRESS_HERE'를 실제 컨트랙트 주소로 교체해야 합니다. -->
+                    <iframe height="100%" width="100%" id="geckoterminal-embed" title="GeckoTerminal Embed" src="https://www.geckoterminal.com/ko/solana/pools/HCeas2dbSrCrHNuzBVpkuaSz7X3oVu9ekzxMc5ZDsZ4j?embed=1&info=0&swaps=0&grayscale=0&light_chart=0&chart_type=price&resolution=1d" frameborder="0" allow="clipboard-write" allowfullscreen></iframe>
+                </div>
+            </section>
+            
+            <!-- 공식 링크 섹션 -->
+            <section class="card official-links">
+                <div class="card-header">
+                    <h2 id="links-title">공식 링크 및 커뮤니티</h2>
+                </div>
+                <ul>
+                    <li><a href="#" target="_blank" rel="noopener noreferrer">Official Website</a></li>
+                    <li><a href="#" target="_blank" rel="noopener noreferrer">Official Telegram</a></li>
+                    <li>
+                        <a href="https://x.com/neirylab" target="_blank" rel="noopener noreferrer" title="트위터 바로가기">
+                            Twitter
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><g><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></g></svg>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- 투자 유의사항 섹션 -->
+            <section class="card">
+                <div class="card-header">
+                    <h2 id="disclaimer-title">투자 유의사항</h2>
+                </div>
+                <p class="disclaimer" id="disclaimer-text">암호화폐 투자는 높은 변동성으로 인해 원금 손실의 위험이 매우 큽니다. 특히 DeSci와 같이 실험적인 분야의 프로젝트는 기술적, 윤리적, 규제적 불확실성을 내포하고 있습니다. 본 페이지에서 제공되는 정보는 투자 권유나 자문이 아니며, 정보 제공을 목적으로 합니다. 모든 투자 결정에 대한 책임은 투자자 본인에게 있습니다.</p>
+            </section>
+        </main>
+
+        <footer>
+            <p>© 2025. All information is for educational purposes only.</p>
+        </footer>
+    </div>
+    
+    <!-- 언어 전환을 위한 스크립트 -->
+    <script>
+        const translations = {
+            ko: {
+                pageTitle: "Pythia (PYTHIA) 프로젝트",
+                mainTitle: "Pythia (PYTHIA) 프로젝트",
+                homeButton: "← 홈으로",
+                introTitle: "프로젝트 소개",
+                teamTitle: "팀 및 파트너십",
+                chartTitle: "실시간 가격/시총 차트",
+                linksTitle: "공식 링크 및 커뮤니티",
+                disclaimerTitle: "투자 유의사항",
+                disclaimerText: "암호화폐 투자는 높은 변동성으로 인해 원금 손실의 위험이 매우 큽니다. 특히 DeSci와 같이 실험적인 분야의 프로젝트는 기술적, 윤리적, 규제적 불확실성을 내포하고 있습니다. 본 페이지에서 제공되는 정보는 투자 권유나 자문이 아니며, 정보 제공을 목적으로 합니다. 모든 투자 결정에 대한 책임은 투자자 본인에게 있습니다."
+            },
+            en: {e
+                pageTitle: "Pythia (PYTHIA) Project",
+                mainTitle: "Pythia (PYTHIA) Project",
+                homeButton: "← Back to Home",
+                introTitle: "Project Introduction",
+                teamTitle: "Team & Partnerships",
+                chartTitle: "Real-time Price / Market Cap Chart",
+                linksTitle: "Official Links & Community",
+                disclaimerTitle: "Investment Disclaimer",
+                disclaimerText: "Cryptocurrency investment involves a high risk of principal loss due to high volatility. Projects in experimental fields like DeSci carry technical, ethical, and regulatory uncertainties. The information provided on this page is not an investment recommendation or advice and is for informational purposes only. All investment decisions are the responsibility of the investor."
+            }
+        };
+
+        const btnKo = document.getElementById('btn-ko');
+        const btnEn = document.getElementById('btn-en');
+        const contentsKo = document.querySelectorAll('.lang-ko');
+        const contentsEn = document.querySelectorAll('.lang-en');
+
+        function setLanguage(lang) {
+            const t = translations[lang];
+
+            document.getElementById('page-title').innerText = t.pageTitle;
+            document.getElementById('main-title').innerText = t.mainTitle;
+            document.querySelector('.home-button').innerText = t.homeButton;
+            document.getElementById('intro-title').innerText = t.introTitle;
+            document.getElementById('team-title').innerText = t.teamTitle;
+            document.getElementById('chart-title').innerText = t.chartTitle;
+            document.getElementById('links-title').innerText = t.linksTitle;
+            document.getElementById('disclaimer-title').innerText = t.disclaimerTitle;
+            document.getElementById('disclaimer-text').innerText = t.disclaimerText;
+
+            if (lang === 'ko') {
+                contentsKo.forEach(el => el.style.display = 'block');
+                contentsEn.forEach(el => el.style.display = 'none');
+                btnKo.classList.add('active');
+                btnEn.classList.remove('active');
+            } else {
+                contentsKo.forEach(el => el.style.display = 'none');
+                contentsEn.forEach(el => el.style.display = 'block');
+                btnEn.classList.add('active');
+                btnKo.classList.remove('active');
+            }
+        }
+
+        btnKo.addEventListener('click', () => setLanguage('ko'));
+        btnEn.addEventListener('click', () => setLanguage('en'));
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setLanguage('ko');
+        });
+    </script>
+</body>
+</html>
