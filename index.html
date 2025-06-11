@@ -126,33 +126,29 @@
             flex-grow: 1;
         }
         
-        /* --- [수정] 즐겨찾기 아이콘 스타일 --- */
         .bookmark-icon {
             position: absolute;
             top: 1.5rem;
             right: 1.5rem;
             cursor: pointer;
-            width: 20px; /* 크기 축소 */
-            height: 20px; /* 크기 축소 */
+            width: 20px;
+            height: 20px;
         }
         .bookmark-icon svg {
             width: 100%;
             height: 100%;
-            stroke: #adb5bd; /* 더 연한 회색으로 변경 */
-            stroke-width: 1.5; /* 선 두께 얇게 */
+            stroke: #adb5bd;
+            stroke-width: 1.5;
             fill: none;
             transition: fill 0.2s, stroke 0.2s;
         }
-        /* 마우스 올렸을 때 (즐겨찾기 안된 상태) */
         .bookmark-icon:not(.favorited):hover svg {
-            stroke: var(--secondary-color); /* 살짝 진하게 */
+            stroke: var(--secondary-color);
         }
-        /* 즐겨찾기 된 상태 */
         .bookmark-icon.favorited svg {
             fill: var(--favorite-color);
             stroke: var(--favorite-color);
         }
-        /* --- 수정 끝 --- */
 
         /* 푸터 */
         .footer {
@@ -210,6 +206,17 @@
                     <p>BNB 체인 기반 DeFAI 자동화 플랫폼</p>
                 </div>
             </a>
+
+            <!-- [추가됨] Pythia 코인 카드 -->
+            <a href="data/pythia.html" class="coin-link" data-coin-id="pythia">
+                <div class="coin-card">
+                    <div class="bookmark-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                    </div>
+                    <h2>Pythia (PYTHIA)</h2>
+                    <p>AI와 뇌를 연결하는 DeSci(탈중앙화 과학) 프로젝트</p>
+                </div>
+            </a>
             
         </main>
 
@@ -223,13 +230,14 @@
             const searchInput = document.getElementById('search-input');
             const toggleFavoritesBtn = document.getElementById('toggle-favorites');
             const coinGrid = document.getElementById('coin-grid');
-            const coinLinks = Array.from(coinGrid.querySelectorAll('.coin-link'));
             const FAVORITES_KEY = 'cryptoExplorerFavorites';
 
             let favorites = getFavorites();
             let favoritesViewActive = false;
 
-            // 1. 즐겨찾기 상태 관리 함수
+            // [중요] 새로운 카드가 추가되었으므로 coinLinks를 다시 조회해야 합니다.
+            const coinLinks = Array.from(coinGrid.querySelectorAll('.coin-link'));
+
             function getFavorites() {
                 const storedFavorites = localStorage.getItem(FAVORITES_KEY);
                 return storedFavorites ? JSON.parse(storedFavorites) : [];
@@ -250,7 +258,6 @@
                 updateCardAppearance();
             }
 
-            // 2. UI 업데이트 함수
             function updateCardAppearance() {
                 coinLinks.forEach(link => {
                     const coinId = link.dataset.coinId;
@@ -263,7 +270,6 @@
                 });
             }
             
-            // 3. 필터링 로직 함수
             function filterCards() {
                 const searchTerm = searchInput.value.toLowerCase();
                 
@@ -289,7 +295,6 @@
                 });
             }
 
-            // 4. 이벤트 리스너 설정
             coinGrid.addEventListener('click', e => {
                 const bookmarkIcon = e.target.closest('.bookmark-icon');
                 if (bookmarkIcon) {
@@ -309,7 +314,6 @@
                 filterCards();
             });
 
-            // 5. 초기화
             updateCardAppearance();
         });
     </script>
