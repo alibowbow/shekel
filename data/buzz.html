@@ -1,0 +1,304 @@
+<!DOCTYPE html>  
+<html lang="ko"> 
+<head>     
+    <meta charset="UTF-8">     
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">     
+    <title id="page-title">Hive AI (BUZZ) 프로젝트</title>     
+    <style>         
+        /* 기본 스타일 */         
+        body {             
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;             
+            margin: 0;             
+            padding: 0;             
+            background-color: #f4f7f6;             
+            color: #333;             
+            line-height: 1.6;         
+        }         
+        .container {             
+            max-width: 960px;             
+            margin: 20px auto;             
+            padding: 0 20px;         
+        }         
+        header {             
+            position: relative;             
+            text-align: center;             
+            padding: 20px 0;             
+            border-bottom: 1px solid #ddd;             
+            margin-bottom: 30px;         
+        }         
+        .home-button {             
+            position: absolute;             
+            top: 50%;             
+            left: 0;             
+            transform: translateY(-50%);             
+            text-decoration: none;             
+            background-color: #e9eef1;             
+            color: #34495e;             
+            padding: 10px 15px;             
+            border-radius: 8px;             
+            font-weight: bold;             
+            transition: background-color 0.2s;         
+        }         
+        .home-button:hover {             
+            background-color: #dce3e8;         
+        }         
+        header h1 {             
+            font-size: 2.5em;             
+            color: #2c3e50;             
+            margin: 0;         
+        }         
+        .card {             
+            background-color: #ffffff;             
+            border-radius: 8px;             
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);             
+            padding: 25px;             
+            margin-bottom: 25px;             
+            overflow: hidden;         
+        }         
+        .card h2 {             
+            font-size: 1.8em;             
+            color: #34495e;             
+            margin-top: 0;             
+            padding-bottom: 10px;         
+        }         
+        .card-header {             
+            display: flex;             
+            justify-content: space-between;             
+            align-items: center;             
+            border-bottom: 2px solid #e0e0e0;             
+            margin-bottom: 15px;         
+        }         
+        .card-header h2 {             
+            border: none;             
+            margin: 0;             
+            padding: 0;         
+        }                  
+        .lang-switcher {             
+            margin-bottom: 25px;             
+            text-align: right;         
+        }         
+        .lang-switcher button {             
+            background-color: #f0f0f0; border: 1px solid #ccc; padding: 8px 16px;             
+            cursor: pointer; border-radius: 5px; font-weight: bold;             
+            margin-left: 5px; transition: background-color 0.3s, color 0.3s;         
+        }         
+        .lang-switcher button:hover { background-color: #e0e0e0; }         
+        .lang-switcher button.active { background-color: #34495e; color: #ffffff; border-color: #34495e; }          
+        .content-block h3 {             
+            font-size: 1.5em; color: #2c3e50; margin-top: 25px;             
+            border-bottom: 1px solid #eee; padding-bottom: 8px;         
+        }         
+        .content-block ul { padding-left: 20px; }         
+        .content-block code {             
+            background-color: #ecf0f1; padding: 2px 6px; border-radius: 4px;             
+            font-family: 'Courier New', Courier, monospace; word-break: break-all;         
+        }         
+        .content-block strong { color: #2c3e50; }                  
+        .sector-tags { margin-top: 10px; }         
+        .sector-tag {             
+            display: inline-block; background-color: #e9eef1; color: #34495e;             
+            padding: 4px 12px; border-radius: 15px; font-size: 0.9em; font-weight: 500;         
+        }                  
+        .official-links ul { list-style: none; padding: 0; }         
+        .official-links li { margin-bottom: 15px; }         
+        .official-links a {             
+            display: inline-flex; align-items: center; text-decoration: none;             
+            color: #3498db; font-weight: bold; font-size: 1.1em;         
+        }         
+        .official-links a:hover { text-decoration: underline; }         
+        .official-links a svg { width: 20px; height: 20px; margin-left: 8px; fill: #3498db; }          
+        .chart-container { position: relative; width: 100%; height: 600px; }         
+        #geckoterminal-embed { width: 100%; height: 100%; border: none; }         
+        .disclaimer {             
+            font-size: 0.9em; color: #7f8c8d; background-color: #ecf0f1;             
+            padding: 15px; border-left: 4px solid #7f8c8d; border-radius: 4px;         
+        }         
+        footer {             
+            text-align: center; padding: 20px 0; margin-top: 30px;             
+            font-size: 0.9em; color: #95a5a6;         
+        }         
+        @media (max-width: 768px) {             
+            header { padding-top: 60px; }             
+            .home-button { top: 15px; left: 0; }             
+            header h1 { font-size: 2em; }             
+            .card h2 { font-size: 1.5em; }             
+            .chart-container { height: 450px; }             
+            .container { padding: 0 15px; }             
+            .card-header { flex-direction: column; align-items: flex-start; }             
+            .lang-switcher { width: 100%; text-align: right; margin-top: 10px; margin-bottom: 15px;}         
+        }     
+    </style> 
+</head> 
+<body>      
+    <div class="container">         
+        <header>             
+            <a href="../index.html" class="home-button">← 홈으로</a>             
+            <h1 id="main-title">Hive AI (BUZZ) 프로젝트</h1>         
+        </header>          
+        <main>             
+            <!-- 프로젝트 소개 섹션 -->             
+            <section class="card">                 
+                <div class="card-header">                     
+                    <h2 id="intro-title">프로젝트 소개</h2>                     
+                    <div class="lang-switcher">                         
+                        <button id="btn-ko" class="active">한국어</button>                         
+                        <button id="btn-en">English</button>                     
+                    </div>                 
+                </div>                 
+                <div class="content-block lang-ko">                     
+                    <h3>프로젝트 개요 및 컨셉</h3>                     
+                    <p>Hive AI(프로젝트명 <strong>The Hive</strong>)는 <strong>Solana 블록체인</strong> 위에서 동작하는 <strong>AI 에이전트 기반 DeFi 실행 플랫폼</strong>입니다. 사용자는 자연어로 “최적 수익률로 스테이킹해줘”, “유동성 공급하고 재투자해줘”와 같이 지시하면, 다중 AI 에이전트가 <strong>온체인 트레이딩·스테이킹·LP 관리</strong>를 자동으로 수행합니다. 아키텍처는 모듈식으로 설계되어 <strong>트레이딩/수익률/유동성 에이전트</strong> 등이 <strong>오케스트레이션 레이어</strong>를 통해 협업하며, Solana의 <strong>Jupiter, Raydium, Marinade</strong> 등 주요 프로토콜과 연동됩니다. 2025년 1월 Solana AI 해커톤에서 <strong>전체 1위(상금 $60,000)</strong>를 수상하며 콘셉트와 기술성을 인정받았습니다.</p><h3>장기 비전</h3>                     
+                    <p>목표는 <strong>자연어 기반의 자산 운용 자동화</strong>를 대중화하는 것입니다. 초보자도 높은 러닝커브 없이 DeFi를 사용할 수 있도록 UX를 단순화하고, 멀티 프로토콜을 아우르는 <strong>원스톱 온체인 에이전트</strong>로 자리 잡는 것을 지향합니다.</p>                                          
+                    <h3>토큰 상세 정보</h3>                     
+                    <ul>                         
+                        <li><strong>토큰 이름:</strong> Hive AI</li>                         
+                        <li><strong>심볼(Symbol):</strong> BUZZ</li>                         
+                        <li><strong>컨트랙트 주소:</strong> <code>9DHe3pycTuymFk4H4bbPoAJ4hQrr2kaLDF6J6aAKpump</code></li>                         
+                        <li><strong>총 발행량:</strong> 1,000,000,000 BUZZ (10억 개)</li>                         
+                        <li><strong>유통량:</strong> 약 1,000,000,000 BUZZ(대부분 유통)</li>                         
+                        <li><strong>배포/할당:</strong> 커뮤니티 50% / 생태계 기금 30% / 팀 20% (팀·생태계 물량 베스팅)</li>                     
+                    </ul>                      
+                    <h3>코인 섹터</h3>                     
+                    <div class="sector-tags">                         
+                        <span class="sector-tag">AI</span>                         
+                        <span class="sector-tag">DeFi</span>                         
+                        <span class="sector-tag">Agent</span>                         
+                        <span class="sector-tag">Solana</span>                     
+                    </div>                      
+                    <h3>토큰 활용 및 용도</h3>                     
+                    <p>BUZZ는 <strong>거버넌스</strong>와 <strong>수수료 공유(스테이킹 보상)</strong>, <strong>에이전트 개발 인센티브</strong>, <strong>플랫폼 서비스 결제</strong>에 사용됩니다. 일부 수수료는 스테이커에게 분배되고, 신규 에이전트 개발자에게 그랜트로 지급되어 생태계 확장을 유도합니다. 또한 Apple Pay·Google Pay 등 결제 통합을 통해 접근성을 높입니다.</p>                 
+                </div>                 
+                <div class="content-block lang-en" style="display: none;">                     
+                    <h3>Project Overview and Concept</h3>                     
+                    <p>Hive AI (code name <strong>The Hive</strong>) is an <strong>AI agent–driven DeFi execution platform</strong> on <strong>Solana</strong>. Users can issue natural-language commands such as “stake for the best yield” or “provide liquidity and auto-compound,” and coordinated agents perform <strong>on-chain trading, staking, and LP management</strong>. The architecture is modular—<strong>trading/yield/liquidity agents</strong> collaborate via an <strong>orchestration layer</strong>, integrated with major Solana protocols such as <strong>Jupiter, Raydium, and Marinade</strong>. The team won <strong>1st place (US$60,000)</strong> in the Solana AI Hackathon in January 2025.</p><h3>Long-term Vision</h3>                     
+                    <p>The goal is to <strong>popularize natural-language asset management</strong> and become a <strong>one‑stop on-chain agent</strong> spanning multiple protocols, lowering the learning curve for DeFi newcomers.</p>                      
+                    <h3>Token Details</h3>                     
+                    <ul>                         
+                        <li><strong>Token Name:</strong> Hive AI</li>                         
+                        <li><strong>Symbol:</strong> BUZZ</li>                         
+                        $1
+                        <li><strong>Contract Address:</strong> <code>9DHe3pycTuymFk4H4bbPoAJ4hQrr2kaLDF6J6aAKpump</code></li>                         
+                        <li><strong>Total Supply:</strong> 1,000,000,000 BUZZ</li>                         
+                        <li><strong>Circulating:</strong> ~1,000,000,000 BUZZ</li>                         
+                        <li><strong>Allocation:</strong> Community 50% / Ecosystem 30% / Team 20% (vesting for non-circulating allocations)</li>                     
+                    </ul>                      
+                    <h3>Coin Sector</h3>                     
+                    <div class="sector-tags">                         
+                        <span class="sector-tag">AI</span>                         
+                        <span class="sector-tag">DeFi</span>                         
+                        <span class="sector-tag">Agent</span>                         
+                        <span class="sector-tag">Solana</span>                     
+                    </div>                      
+                    <h3>Use Cases & Utility</h3>                     
+                    <p>BUZZ powers <strong>governance</strong>, <strong>fee‑sharing via staking</strong>, <strong>developer incentives for new agents</strong>, and <strong>service payments</strong>. Portions of protocol fees are distributed to stakers and to builders as grants; card payments (e.g., Apple Pay/Google Pay) improve accessibility.</p>                 
+                </div>             
+            </section>              
+            <!-- 팀 및 파트너십 섹션 -->             
+            <section class="card">                 
+                <div class="card-header">                     
+                    <h2 id="team-title">팀 및 파트너십</h2>                 
+                </div>                 
+                <div class="content-block lang-ko">                     
+                    <p>창립자 <strong>Jason Hedman (@jsonhedman)</strong>을 중심으로 한 소규모 팀이 개발을 주도했으며, 해커톤 다수 수상 경력을 보유합니다. <strong>Zerebro</strong>와의 기술 제휴를 통해 에이전트 간 고속 통신 인프라를 구축했고, 결제 측면에서 <strong>Apple Pay·Google Pay</strong> 통합을 발표했습니다. 상장 측면에서는 <strong>Bitget, Gate.io, MEXC, KuCoin, CoinEx</strong> 등에 등재되어 초기 유동성을 확보했습니다.</p>                 
+                </div>                 
+                <div class="content-block lang-en" style="display: none;">                     
+                    <p>A compact team led by <strong>Jason Hedman (@jsonhedman)</strong> drives development with multiple hackathon wins. Partnerships include <strong>Zerebro</strong> for fast inter‑agent communication, and card payment integrations such as <strong>Apple Pay/Google Pay</strong>. Listings include <strong>Bitget, Gate.io, MEXC, KuCoin, and CoinEx</strong>, supporting early liquidity.</p>                 
+                </div>             
+            </section>              
+            <!-- 실시간 가격/시총 차트 섹션 -->             
+            <section class="card">                 
+                <div class="card-header">                     
+                    <h2 id="chart-title">실시간 가격/시총 차트</h2>                 
+                </div>                 
+                <div class="chart-container">                     
+                    <iframe height="100%" width="100%" id="geckoterminal-embed" title="GeckoTerminal Embed" src="https://www.geckoterminal.com/ko/solana/pools/J2p6tgZDkvtHQ3VfbGRjzHJNLrqFgGfvjJsp2K7HX5cH?embed=1&info=0&swaps=0&grayscale=0&light_chart=0&chart_type=price&resolution=1d" frameborder="0" allow="clipboard-write" allowfullscreen></iframe>                 
+                </div>             
+            </section>                          
+            <!-- 공식 링크 섹션 -->             
+            <section class="card official-links">                 
+                <div class="card-header">                     
+                    <h2 id="links-title">공식 링크 및 커뮤니티</h2>                 
+                </div>                 
+                <ul>                     
+                    <li><a href="https://www.askthehive.ai" target="_blank" rel="noopener noreferrer">Official Website</a></li>                     
+                    <li><a href="https://discord.gg/" target="_blank" rel="noopener noreferrer">Official Discord</a></li>                     
+                    <li>                         
+                        <a href="https://twitter.com/askthehive_ai" target="_blank" rel="noopener noreferrer" title="트위터 바로가기">                             
+                            Twitter                             
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><g><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></g></svg>                         
+                        </a>                     
+                    </li></ul>             
+            </section>              
+            <!-- 투자 유의사항 섹션 -->             
+            <section class="card">                 
+                <div class="card-header">                     
+                    <h2 id="disclaimer-title">투자 유의사항</h2>                 
+                </div>                 
+                <p class="disclaimer" id="disclaimer-text">암호화폐 투자는 높은 변동성으로 인해 원금 손실의 위험이 매우 큽니다. 특히 AI+DeFi와 같이 신생 영역의 프로젝트는 기술적·규제적 불확실성이 크며, 본 페이지의 정보는 투자 권유가 아닙니다. 모든 투자 결정과 책임은 투자자 본인에게 있습니다.</p>             
+            </section>         
+        </main>          
+        <footer>             
+            <p>© 2025. All information is for educational purposes only.</p>         
+        </footer>     
+    </div>          
+    <!-- 언어 전환을 위한 스크립트 -->     
+    <script>         
+        const translations = {             
+            ko: {                 
+                pageTitle: "Hive AI (BUZZ) 프로젝트",                 
+                mainTitle: "Hive AI (BUZZ) 프로젝트",                 
+                homeButton: "← 홈으로",                 
+                introTitle: "프로젝트 소개",                 
+                teamTitle: "팀 및 파트너십",                 
+                chartTitle: "실시간 가격/시총 차트",                 
+                linksTitle: "공식 링크 및 커뮤니티",                 
+                disclaimerTitle: "투자 유의사항",                 
+                disclaimerText: "암호화폐 투자는 높은 변동성으로 인해 원금 손실의 위험이 매우 큽니다. 특히 AI+DeFi와 같이 신생 영역의 프로젝트는 기술적·규제적 불확실성이 크며, 본 페이지의 정보는 투자 권유가 아닙니다. 모든 투자 결정과 책임은 투자자 본인에게 있습니다."             
+            },             
+            en: {                 
+                pageTitle: "Hive AI (BUZZ) Project",                 
+                mainTitle: "Hive AI (BUZZ) Project",                 
+                homeButton: "← Back to Home",                 
+                introTitle: "Project Introduction",                 
+                teamTitle: "Team & Partnerships",                 
+                chartTitle: "Real-time Price / Market Cap Chart",                 
+                linksTitle: "Official Links & Community",                 
+                disclaimerTitle: "Investment Disclaimer",                 
+                disclaimerText: "Cryptocurrency investment involves a high risk of principal loss due to high volatility. Projects in emerging areas like AI+DeFi carry technical and regulatory uncertainties. The information on this page is not investment advice; all decisions are the investor's responsibility."             }         
+        };          
+        
+        const btnKo = document.getElementById('btn-ko');         
+        const btnEn = document.getElementById('btn-en');         
+        const contentsKo = document.querySelectorAll('.lang-ko');         
+        const contentsEn = document.querySelectorAll('.lang-en');          
+        function setLanguage(lang) {             
+            const t = translations[lang];              
+            document.getElementById('page-title').innerText = t.pageTitle;             
+            document.getElementById('main-title').innerText = t.mainTitle;             
+            document.querySelector('.home-button').innerText = t.homeButton;             
+            document.getElementById('intro-title').innerText = t.introTitle;             
+            document.getElementById('team-title').innerText = t.teamTitle;             
+            document.getElementById('chart-title').innerText = t.chartTitle;             
+            document.getElementById('links-title').innerText = t.linksTitle;             
+            document.getElementById('disclaimer-title').innerText = t.disclaimerTitle;             
+            document.getElementById('disclaimer-text').innerText = t.disclaimerText;              
+            if (lang === 'ko') {                 
+                contentsKo.forEach(el => el.style.display = 'block');                 
+                contentsEn.forEach(el => el.style.display = 'none');                 
+                btnKo.classList.add('active');                 
+                btnEn.classList.remove('active');             
+            } else {                 
+                contentsKo.forEach(el => el.style.display = 'none');                 
+                contentsEn.forEach(el => el.style.display = 'block');                 
+                btnEn.classList.add('active');                 
+                btnKo.classList.remove('active');             
+            }         
+        }          
+        btnKo.addEventListener('click', () => setLanguage('ko'));         
+        btnEn.addEventListener('click', () => setLanguage('en'));          
+        document.addEventListener('DOMContentLoaded', () => {             
+            setLanguage('ko');         
+        });     
+    </script> 
+</body> 
+</html>
