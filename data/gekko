@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="page-title">Gekko (GEKKO) 종합 분석</title>
+  <style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background: #f4f7f6; color:#333; line-height:1.6; }
+    .container { max-width: 960px; margin: 20px auto; padding: 0 20px; }
+    header { position: relative; text-align:center; padding: 20px 0; border-bottom: 1px solid #ddd; margin-bottom: 30px; }
+    .home-button { position: absolute; top: 50%; left: 0; transform: translateY(-50%); text-decoration:none; background:#e9eef1; color:#34495e; padding:10px 15px; border-radius:8px; font-weight:bold; }
+    header h1 { font-size: 2.2em; color:#2c3e50; margin:0; }
+    .card { background:#fff; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,.08); padding: 24px; margin-bottom: 24px; overflow:hidden; }
+    .card-header { display:flex; justify-content: space-between; align-items:center; border-bottom: 2px solid #eee; margin:-24px -24px 16px; padding:16px 24px; }
+    .card h2 { font-size: 1.6em; color:#34495e; margin:0; }
+    .content-block h3 { font-size:1.2em; border-bottom:1px solid #eee; padding-bottom:8px; margin-top:18px; color:#2c3e50; }
+    .lang-switcher button { background:#f0f0f0; border:1px solid #ccc; padding:6px 12px; border-radius:6px; font-weight:600; cursor:pointer; margin-left:6px; }
+    .lang-switcher button.active { background:#34495e; color:#fff; border-color:#34495e; }
+    .sector-tags { margin-top: 8px; }
+    .sector-tag { display:inline-block; background:#e9eef1; color:#34495e; padding:4px 10px; border-radius:14px; font-size:.9em; margin-right:6px; }
+    .token-table { width:100%; border-collapse:collapse; margin-top:8px; }
+    .token-table th, .token-table td { border:1px solid #eee; padding:10px; text-align:left; }
+    .token-table th { background:#fafafa; width:28%; }
+    code { background:#ecf0f1; padding:2px 6px; border-radius:4px; font-family:'Courier New', monospace; word-break:break-all; }
+    .copy-wrap { display:flex; align-items:center; gap:8px; }
+    .btn-copy { background:#f0f0f0; border:1px solid #ccc; padding:6px 10px; border-radius:6px; cursor:pointer; }
+    .chart-container { position:relative; width:100%; height:600px; }
+    #geckoterminal-embed { width:100%; height:100%; border:none; }
+    .official-links ul { list-style:none; padding:0; }
+    .official-links li { margin-bottom:10px; }
+    .official-links a { color:#3498db; text-decoration:none; font-weight:600; }
+    .official-links a:hover { text-decoration:underline; }
+    .disclaimer { font-size:.95em; color:#7f8c8d; background:#ecf0f1; padding:14px; border-left:4px solid #7f8c8d; border-radius:4px; }
+    footer { text-align:center; color:#95a5a6; font-size:.9em; padding: 16px 0 28px; }
+    @media (max-width:768px){ .chart-container{ height: 450px; } header h1{ font-size:1.8em; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a href="../index.html" class="home-button">← 홈으로</a>
+      <h1 id="main-title">Gekko (GEKKO) 종합 분석</h1>
+    </header>
+
+    <!-- 소개 -->
+    <section class="card">
+      <div class="card-header">
+        <h2 id="intro-title">프로젝트 소개</h2>
+        <div class="lang-switcher">
+          <button id="btn-ko" class="active">한국어</button>
+          <button id="btn-en">English</button>
+        </div>
+      </div>
+      <div class="content-block lang-ko">
+        <h3>개요</h3>
+        <p><strong>Gekko (티커: GEKKO)</strong>는 <strong>Axal</strong> 생태계에서 개발된 <strong>AI 에이전트 코인</strong>으로, <strong>Coinbase Base</strong> 체인 기반의 <strong>ERC‑20</strong> 토큰입니다. Axal은 “<strong>검증 가능한 자율 에이전트</strong>” 네트워크를 지향하며, Gekko는 해당 네트워크에서 <strong>자동화 트레이딩</strong>을 수행하는 대표 캐릭터형 에이전트입니다. 1980년대 월가 트레이더를 연상시키는 페르소나로, 2020년대 크립토 시장에서 <strong>알파</strong>를 추구하도록 설계되었습니다.</p>
+        <h3>핵심 포인트</h3>
+        <ul>
+          <li><strong>역할:</strong> Axal 플랫폼의 자동화 트레이딩 에이전트 (밈/브랜드 + 실사용 도구 결합)</li>
+          <li><strong>엔진:</strong> Axal <em>Autopilot</em> + Virtuals Protocol 온체인 에이전트 프레임워크</li>
+          <li><strong>검증성:</strong> 온체인 기록, ZK/옵티미스틱 검증 보조, 잘못된 행동 시 담보 슬래싱</li>
+        </ul>
+      </div>
+      <div class="content-block lang-en" style="display:none;">
+        <h3>Overview</h3>
+        <p><strong>Gekko (ticker: GEKKO)</strong> is an <strong>AI agent token</strong> built within the <strong>Axal</strong> ecosystem, issued on <strong>Coinbase Base</strong> as an <strong>ERC‑20</strong>. Axal aims to build a network of <strong>verifiable agents</strong>; Gekko is the flagship agent that performs <strong>automated trading</strong> with a persona inspired by 1980s Wall Street traders, targeting <strong>alpha</strong> generation in crypto.</p>
+        <h3>Key points</h3>
+        <ul>
+          <li><strong>Role:</strong> Automated trading agent on Axal (meme/brand + utility)</li>
+          <li><strong>Engine:</strong> Axal <em>Autopilot</em> + Virtuals Protocol on‑chain framework</li>
+          <li><strong>Verifiability:</strong> On‑chain traces with ZK/optimistic checks; misbehavior penalized by collateral slashing</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 기술 & 사용 사례 -->
+    <section class="card">
+      <div class="card-header"><h2>기술 및 사용 사례</h2></div>
+      <div class="content-block lang-ko">
+        <ul>
+          <li><strong>Autopilot</strong>: 복잡한 멀티‑스텝 전략을 에이전트가 자동 실행 (리밸런싱, 조건부 주문, 예치/수익 극대화 등).</li>
+          <li><strong>검증 가능 에이전트</strong>: 모든 행동은 온체인으로 기록되고 보조 검증(ZK/옵티미스틱)으로 신뢰성 강화. 오류 시 담보 <em>슬래싱</em>으로 페널티.</li>
+          <li><strong>GekkoTerminal</strong>: GEKKO 보유자 전용 웹 인터페이스. 자연어로 “BTC/ETH 인덱스 만들어줘” 등 명령 → 원클릭 실행.</li>
+          <li><strong>소셜 활동</strong>: X(@Gekko_Agent)에서 시장 논평/밈 게시로 커뮤니티 참여 촉진.</li>
+        </ul>
+      </div>
+      <div class="content-block lang-en" style="display:none;">
+        <ul>
+          <li><strong>Autopilot</strong>: Agents execute complex multi‑step strategies (rebalancing, conditional orders, yield strategies).</li>
+          <li><strong>Verifiable agents</strong>: On‑chain activity + ZK/optimistic helpers; penalties via collateral <em>slashing</em> for faulty behavior.</li>
+          <li><strong>GekkoTerminal</strong>: Token‑gated interface; natural‑language prompts (e.g., “Build a BTC/ETH index”) → one‑click execution.</li>
+          <li><strong>Social</strong>: X(@Gekko_Agent) posts market takes/memes to drive community engagement.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 토크노믹스 -->
+    <section class="card">
+      <div class="card-header"><h2>토크노믹스</h2></div>
+      <div class="content-block lang-ko">
+        <table class="token-table">
+          <tr><th>토큰 이름 / 심볼</th><td>Gekko / <strong>GEKKO</strong></td></tr>
+          <tr><th>체인</th><td>Base (Ethereum L2)</td></tr>
+          <tr>
+            <th>컨트랙트 주소</th>
+            <td>
+              <div class="copy-wrap">
+                <code id="addr">0xf7b0dd0B642a6ccc2fc4d8FfE2BfFb0caC8C43C8</code>
+                <button class="btn-copy" onclick="copyAddress()">복사</button>
+                <a href="https://basescan.org/token/0xf7b0dd0B642a6ccc2fc4d8FfE2BfFb0caC8C43C8" target="_blank" rel="noopener noreferrer">BaseScan</a>
+              </div>
+            </td>
+          </tr>
+          <tr><th>총 공급량</th><td>1,000,000,000 GEKKO (고정)</td></tr>
+          <tr><th>유통량</th><td>1,000,000,000 GEKKO (100% 유통)</td></tr>
+          <tr><th>주요 유틸리티</th><td>GekkoTerminal 접근권, Axal 에이전트 기능 활용, 커뮤니티 참여/거버넌스(잠재)</td></tr>
+          <tr><th>스테이킹/소각</th><td>공식 스테이킹/소각 없음 (에이전트 담보 슬래싱 메커니즘 별도 존재)</td></tr>
+          <tr><th>거래 시작</th><td>2024년 12월경 Uniswap(Base) 풀 생성으로 유통 시작 추정</td></tr>
+        </table>
+      </div>
+      <div class="content-block lang-en" style="display:none;">
+        <table class="token-table">
+          <tr><th>Token / Symbol</th><td>Gekko / <strong>GEKKO</strong></td></tr>
+          <tr><th>Chain</th><td>Base (Ethereum L2)</td></tr>
+          <tr>
+            <th>Contract</th>
+            <td>
+              <div class="copy-wrap">
+                <code id="addr-en">0xf7b0dd0B642a6ccc2fc4d8FfE2BfFb0caC8C43C8</code>
+                <button class="btn-copy" onclick="copyAddressEn()">Copy</button>
+                <a href="https://basescan.org/token/0xf7b0dd0B642a6ccc2fc4d8FfE2BfFb0caC8C43C8" target="_blank" rel="noopener noreferrer">BaseScan</a>
+              </div>
+            </td>
+          </tr>
+          <tr><th>Total Supply</th><td>1,000,000,000 GEKKO (fixed)</td></tr>
+          <tr><th>Circulating</th><td>1,000,000,000 GEKKO (100%)</td></tr>
+          <tr><th>Utility</th><td>Access to GekkoTerminal, agent features on Axal, community/governance (potential)</td></tr>
+          <tr><th>Staking/Burn</th><td>No official staking/burn (collateral slashing exists at agent level)</td></tr>
+          <tr><th>Market Debut</th><td>Likely started via Uniswap (Base) pool in Dec 2024</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- 시장/차트 -->
+    <section class="card">
+      <div class="card-header"><h2>실시간 가격/유동성 차트</h2></div>
+      <div class="chart-container">
+        <iframe height="100%" width="100%" id="geckoterminal-embed" title="GeckoTerminal Embed" src="https://www.geckoterminal.com/base/pools/0xf9e91661c101196146cb2bf62f803d8ea6880a2e?embed=1&info=1&swaps=1&grayscale=0&light_chart=0&chart_type=price&resolution=15m" frameborder="0" allow="clipboard-write" allowfullscreen></iframe>
+      </div>
+      <p class="disclaimer" style="margin-top:12px;">가격/거래 데이터는 서드파티 위젯을 통해 제공되며 지연 또는 오류가 있을 수 있습니다.</p>
+    </section>
+
+    <!-- 팀 & 파트너십 -->
+    <section class="card">
+      <div class="card-header"><h2>개발 팀 및 파트너십</h2></div>
+      <div class="content-block lang-ko">
+        <ul>
+          <li><strong>팀(Axal):</strong> 2023년 설립 Web3 스타트업. 창립자/CEO Ashlan “Ash” Ahmed. 전략/운영 책임자 Ari Santos, 성장 책임자 Jacob Kozhipatt 등 핵심 인력 공개.</li>
+          <li><strong>투자:</strong> 2024년 10월 프리‑시드 라운드에서 CMT Digital 주도 약 $2.5M 조달(여러 크립토 펀드/엔젤 참여).</li>
+          <li><strong>파트너십:</strong> Virtuals Protocol과 공동으로 Gekko 에이전트 출시. 2025‑01 Agora Finance와 전략적 협업 발표(유동성/온체인 데이터 활용 등 모색).</li>
+        </ul>
+      </div>
+      <div class="content-block lang-en" style="display:none;">
+        <ul>
+          <li><strong>Team (Axal):</strong> Web3 startup founded in 2023. Founder/CEO Ashlan “Ash” Ahmed; key roles include Ari Santos (Strategy/Operations) and Jacob Kozhipatt (Growth).</li>
+          <li><strong>Funding:</strong> Pre‑seed in Oct 2024 led by CMT Digital (~$2.5M) with several crypto funds/angels participating.</li>
+          <li><strong>Partnerships:</strong> Co‑launched with Virtuals Protocol; strategic collaboration with Agora Finance announced in Jan 2025.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 공식 링크 -->
+    <section class="card official-links">
+      <div class="card-header"><h2>공식 링크</h2></div>
+      <ul>
+        <li><a href="https://axal.com/" target="_blank" rel="noopener noreferrer">Axal 공식 웹사이트</a></li>
+        <li><a href="https://x.com/Gekko_Agent" target="_blank" rel="noopener noreferrer">X: @Gekko_Agent</a></li>
+        <li><a href="https://x.com/getaxal" target="_blank" rel="noopener noreferrer">X: @getaxal</a></li>
+        <li><a href="https://basescan.org/token/0xf7b0dd0B642a6ccc2fc4d8FfE2BfFb0caC8C43C8" target="_blank" rel="noopener noreferrer">BaseScan: GEKKO 컨트랙트</a></li>
+      </ul>
+    </section>
+
+    <!-- 유의사항 -->
+    <section class="card">
+      <div class="card-header"><h2>투자 유의사항</h2></div>
+      <p class="disclaimer">암호화폐 투자는 높은 변동성으로 원금 손실 위험이 큽니다. 본 페이지는 교육용 정보이며 투자 권유가 아닙니다. 모든 결정과 책임은 투자자 본인에게 있습니다.</p>
+    </section>
+
+    <footer>
+      <p>© 2025. All information is for educational purposes only.</p>
+    </footer>
+  </div>
+
+  <script>
+    // 언어 전환
+    const btnKo = document.getElementById('btn-ko');
+    const btnEn = document.getElementById('btn-en');
+    const contentsKo = document.querySelectorAll('.lang-ko');
+    const contentsEn = document.querySelectorAll('.lang-en');
+    function setLanguage(lang){
+      if(lang==='ko'){
+        contentsKo.forEach(el=>el.style.display='block');
+        contentsEn.forEach(el=>el.style.display='none');
+        btnKo.classList.add('active'); btnEn.classList.remove('active');
+      } else {
+        contentsKo.forEach(el=>el.style.display='none');
+        contentsEn.forEach(el=>el.style.display='block');
+        btnEn.classList.add('active'); btnKo.classList.remove('active');
+      }
+    }
+    btnKo.addEventListener('click',()=>setLanguage('ko'));
+    btnEn.addEventListener('click',()=>setLanguage('en'));
+    document.addEventListener('DOMContentLoaded',()=>setLanguage('ko'));
+
+    // 주소 복사
+    function copyTextFrom(id){
+      const el = document.getElementById(id);
+      if(!el) return;
+      const text = el.textContent.trim();
+      navigator.clipboard.writeText(text).then(()=>{
+        alert('컨트랙트 주소가 복사되었습니다.');
+      });
+    }
+    function copyAddress(){ copyTextFrom('addr'); }
+    function copyAddressEn(){ copyTextFrom('addr-en'); }
+  </script>
+</body>
+</html>
