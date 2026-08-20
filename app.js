@@ -32,12 +32,14 @@ const META=[...KNOWN,...GT];
 const BN_META=new Map(),MX_META=new Map(),ID_META=new Map();
 for(const m of META){ID_META.set(m.id,m);for(const s of m.bn||[])BN_META.set(s,m);for(const s of m.mx||[])MX_META.set(s,m)}
 const MAJORS=new Set(['BTC','ETH','BNB','SOL','XRP','ADA','DOGE','TRX','TON','AVAX','LINK','DOT','LTC','BCH','SUI','XLM','HBAR','USDC','USDE','FDUSD','TUSD','DAI','BTCDOM','DEFI']);
+const CATEGORY_PRIORITY=['Meme','AI','DeFi','Layer-1','Layer-2','Gaming','RWA','Payment','PoW','Metaverse','NFT','Fan Token','Privacy','Storage','Oracle'];
+const CATEGORY_LABELS={Meme:'밈',AI:'AI',DeFi:'DeFi','Layer-1':'L1','Layer-2':'L2',Gaming:'게임',RWA:'RWA',Payment:'결제',PoW:'PoW',Metaverse:'메타버스',NFT:'NFT','Fan Token':'팬토큰',Privacy:'프라이버시',Storage:'스토리지',Oracle:'오라클'};
 const savedFav=(()=>{try{return JSON.parse(localStorage.getItem('shekel-fav')||'[]')}catch(_){return[]}})();
-const S={tab:'binance',q:'',sort:'change',theme:document.documentElement.dataset.theme||'dark',fav:new Set(),bn:new Map(),mx:new Map(),fund:new Map(),bl:false,ml:false,last:null,socket:null,openItem:null,renderTimer:null};
+const S={tab:'binance',category:'all',q:'',sort:'change',dir:'desc',theme:document.documentElement.dataset.theme||'dark',fav:new Set(),bn:new Map(),mx:new Map(),fund:new Map(),bnCategories:new Map(),categoryList:[],bl:false,ml:false,last:null,socket:null,openItem:null,renderTimer:null};
 for(const key of savedFav){if(String(key).includes(':'))S.fav.add(String(key));else{const m=ID_META.get(String(key));if(m)S.fav.add(m.chart?'dex:'+m.id:(m.bn?.[0]?'bn:'+m.bn[0]:'mx:'+m.mx?.[0]))}}
 
 const $=id=>document.getElementById(id);
-const E={tabs:$('tabs'),search:$('search'),sort:$('sort'),rows:$('rows'),empty:$('empty'),count:$('count'),status:$('status'),statusText:$('statusText'),bnCount:$('bnCount'),mxCount:$('mxCount'),dxCount:$('dxCount'),favCount:$('favCount'),shade:$('shade'),close:$('close'),dSymbol:$('dSymbol'),dName:$('dName'),dPrice:$('dPrice'),dChange:$('dChange'),dFunding:$('dFunding'),chartSource:$('chartSource'),chartOpen:$('chartOpen'),chartHost:$('chartHost'),theme:$('theme'),themeIcon:$('themeIcon')};
+const E={tabs:$('tabs'),categories:$('categories'),tableHead:$('tableHead'),search:$('search'),sort:$('sort'),rows:$('rows'),empty:$('empty'),count:$('count'),status:$('status'),statusText:$('statusText'),bnCount:$('bnCount'),mxCount:$('mxCount'),dxCount:$('dxCount'),favCount:$('favCount'),symbolSortMark:$('symbolSortMark'),changeSortMark:$('changeSortMark'),shade:$('shade'),close:$('close'),dSymbol:$('dSymbol'),dName:$('dName'),dPrice:$('dPrice'),dChange:$('dChange'),dFunding:$('dFunding'),chartSource:$('chartSource'),chartOpen:$('chartOpen'),chartHost:$('chartHost'),theme:$('theme'),themeIcon:$('themeIcon')};
 
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const baseBN=s=>String(s).replace(/USDT$/,'');
@@ -75,11 +77,39 @@ function cls(v){v=num(v);return v===null?'dim':v>0?'up':v<0?'down':'dim'}
 function marketBadges(item){let a=[];if(item.venue==='BINANCE'||item.meta?.bn?.some(s=>S.bn.has(s)))a.push('<span class="badge bn">BN</span>');if(item.venue==='MEXC'||item.meta?.mx?.some(s=>S.mx.has(s)))a.push('<span class="badge mx">MX</span>');if(item.meta?.chart)a.push('<span class="badge dx">DEX</span>');return a.join('')}
 function secondary(item){if(item.name&&item.name!=='USDT 무기한')return item.chain?`${item.name} · ${item.chain}`:item.name;return `${item.venue} USDT 무기한`}
 function saveFav(){try{localStorage.setItem('shekel-fav',JSON.stringify([...S.fav]))}catch(_){}E.favCount.textContent=S.fav.size}
+function compareNullable(a,b){
+  if(a===null&&b===null)return 0;
+  if(a===null)return 1;
+  if(b===null)return-1;
+  const r=a<b?-1:a>b?1:0;
+  return S.dir==='asc'?r:-r;
+}
 function compare(a,b){
-  if(S.sort==='symbol')return a.display.localeCompare(b.display);
-  if(S.sort==='volume')return (num(b.volume)??-Infinity)-(num(a.volume)??-Infinity);
-  if(S.sort==='funding')return Math.abs(num(b.funding)??-Infinity)-Math.abs(num(a.funding)??-Infinity);
-  return (num(b.change)??-Infinity)-(num(a.change)??-Infinity);
+  if(S.sort==='symbol'){const r=a.display.localeCompare(b.display,undefined,{numeric:true,sensitivity:'base'});return S.dir==='asc'?r:-r}
+  if(S.sort==='volume')return compareNullable(num(a.volume),num(b.volume));
+  if(S.sort==='funding'){const av=num(a.funding),bv=num(b.funding);return compareNullable(av===null?null:Math.abs(av),bv===null?null:Math.abs(bv))}
+  return compareNullable(num(a.change),num(b.change));
+}
+function categoryLabel(id){return CATEGORY_LABELS[id]||id}
+function normalizeCategory(value){
+  const v=String(value||'').trim();
+  const aliases={'MEME':'Meme','Meme Coin':'Meme','Artificial Intelligence':'AI','GameFi':'Gaming','Layer1':'Layer-1','Layer2':'Layer-2'};
+  return aliases[v]||v;
+}
+function renderCategories(){
+  E.categories.hidden=S.tab!=='binance';
+  if(S.tab!=='binance')return;
+  const counts=new Map();
+  for(const item of S.bn.values())for(const tag of S.bnCategories.get(item.symbol)||[])counts.set(tag,(counts.get(tag)||0)+1);
+  const visible=S.categoryList.map(id=>({id,count:counts.get(id)||0})).filter(x=>x.count>0);
+  if(S.category!=='all'&&!visible.some(x=>x.id===S.category))S.category='all';
+  const tabs=[{id:'all',label:'전체',count:S.bn.size},...visible.map(x=>({id:x.id,label:categoryLabel(x.id),count:x.count}))];
+  E.categories.innerHTML=tabs.map(x=>`<button class="category ${S.category===x.id?'on':''}" type="button" data-category="${esc(x.id)}">${esc(x.label)} <em>${x.count}</em></button>`).join('');
+}
+function updateSortMarks(){
+  E.symbolSortMark.textContent=S.sort==='symbol'?(S.dir==='asc'?'▲':'▼'):'';
+  E.changeSortMark.textContent=S.sort==='change'?(S.dir==='asc'?'▲':'▼'):'';
+  E.sort.value=S.sort;
 }
 function updateStatus(){
   E.bnCount.textContent=S.bn.size;E.mxCount.textContent=S.mx.size;E.dxCount.textContent=GT.length;E.favCount.textContent=S.fav.size;
@@ -88,8 +118,10 @@ function updateStatus(){
   if(!S.bl&&!S.ml)E.statusText.textContent='연결 중';
 }
 function render(){
-  updateStatus();
-  const q=S.q,raw=allItems();
+  updateStatus();renderCategories();updateSortMarks();
+  const q=S.q;
+  let raw=allItems();
+  if(S.tab==='binance'&&S.category!=='all')raw=raw.filter(x=>S.bnCategories.get(x.symbol)?.has(S.category));
   const filtered=raw.filter(x=>!q||x.display.toLowerCase().includes(q)||x.name.toLowerCase().includes(q));
   filtered.sort(compare);
   const cap=S.tab==='mexc'?350:300,items=filtered.slice(0,cap);
@@ -101,6 +133,29 @@ function render(){
 function scheduleRender(){if(S.renderTimer)return;S.renderTimer=setTimeout(()=>{S.renderTimer=null;render()},220)}
 function findItem(key){if(key.startsWith('bn:'))return S.bn.get(key.slice(3));if(key.startsWith('mx:'))return S.mx.get(key.slice(3));if(key.startsWith('dex:')){const m=ID_META.get(key.slice(4));return m?dexItem(m):null}return null}
 async function json(urls,timeout=6500){let err;for(const url of urls){const c=new AbortController(),timer=setTimeout(()=>c.abort(),timeout);try{const r=await fetch(url,{cache:'no-store',signal:c.signal});if(!r.ok)throw Error(r.status);return await r.json()}catch(e){err=e}finally{clearTimeout(timer)}}throw err}
+async function loadBNMeta(){
+  try{
+    const info=await json(['https://fapi.binance.com/fapi/v1/exchangeInfo','https://fapi1.binance.com/fapi/v1/exchangeInfo','https://fapi2.binance.com/fapi/v1/exchangeInfo'],9000);
+    const map=new Map(),counts=new Map();
+    for(const x of info?.symbols||[]){
+      if(!eligible('BINANCE',x.symbol))continue;
+      const tags=[...new Set((Array.isArray(x.underlyingSubType)?x.underlyingSubType:[]).map(normalizeCategory).filter(Boolean))];
+      map.set(x.symbol,new Set(tags));
+      for(const tag of tags)counts.set(tag,(counts.get(tag)||0)+1);
+    }
+    S.bnCategories=map;
+    const priorityIndex=new Map(CATEGORY_PRIORITY.map((x,i)=>[x,i]));
+    S.categoryList=[...counts.entries()]
+      .filter(([,count])=>count>=2)
+      .sort((a,b)=>{
+        const ai=priorityIndex.has(a[0])?priorityIndex.get(a[0]):999,bi=priorityIndex.has(b[0])?priorityIndex.get(b[0]):999;
+        return ai-bi||b[1]-a[1]||a[0].localeCompare(b[0]);
+      })
+      .slice(0,16)
+      .map(([id])=>id);
+  }catch(e){console.warn('Binance category metadata',e)}
+  render();
+}
 async function loadBN(){
   try{
     const [tickers,premium]=await Promise.all([
@@ -143,10 +198,18 @@ function openItem(item){
 }
 function closeDrawer(){E.shade.classList.remove('on');E.shade.setAttribute('aria-hidden','true');E.chartHost.replaceChildren();document.body.classList.remove('lock');S.openItem=null}
 function applyTheme(theme,reload=true){S.theme=theme;document.documentElement.dataset.theme=theme;try{localStorage.setItem('shekel-theme',theme)}catch(_){}document.querySelector('meta[name="theme-color"]').content=theme==='light'?'#f3f5f7':'#080a0e';const light=theme==='light';E.themeIcon.textContent=light?'☾':'☀';E.theme.title=light?'다크 모드':'라이트 모드';E.theme.setAttribute('aria-label',light?'다크 모드로 전환':'라이트 모드로 전환');if(reload&&S.openItem)mountChart(S.openItem)}
+function toggleSort(field){
+  if(S.sort===field)S.dir=S.dir==='asc'?'desc':'asc';
+  else{S.sort=field;S.dir=field==='symbol'?'asc':'desc'}
+  render();
+}
 
 E.tabs.onclick=e=>{const b=e.target.closest('[data-tab]');if(!b)return;S.tab=b.dataset.tab;document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x===b));render()};
-E.search.oninput=e=>{S.q=e.target.value.trim().toLowerCase();render()};E.sort.onchange=e=>{S.sort=e.target.value;render()};
+E.categories.onclick=e=>{const b=e.target.closest('[data-category]');if(!b)return;S.category=b.dataset.category;render()};
+E.tableHead.onclick=e=>{const b=e.target.closest('[data-head-sort]');if(b)toggleSort(b.dataset.headSort)};
+E.search.oninput=e=>{S.q=e.target.value.trim().toLowerCase();render()};
+E.sort.onchange=e=>{S.sort=e.target.value;S.dir=S.sort==='symbol'?'asc':'desc';render()};
 E.rows.onclick=e=>{const f=e.target.closest('[data-fav]');if(f){e.stopPropagation();S.fav.has(f.dataset.fav)?S.fav.delete(f.dataset.fav):S.fav.add(f.dataset.fav);saveFav();return render()}const r=e.target.closest('[data-key]');if(r)openItem(findItem(r.dataset.key))};
 E.rows.onkeydown=e=>{if((e.key==='Enter'||e.key===' ')&&!e.target.closest('button')){e.preventDefault();const r=e.target.closest('[data-key]');if(r)openItem(findItem(r.dataset.key))}};
 E.close.onclick=closeDrawer;E.shade.onclick=e=>{if(e.target===E.shade)closeDrawer()};E.theme.onclick=()=>applyTheme(S.theme==='light'?'dark':'light');window.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer()});
-applyTheme(S.theme,false);saveFav();render();loadBN();loadMX();socket();setInterval(loadMX,12000);setInterval(loadBN,60000);
+applyTheme(S.theme,false);saveFav();render();loadBN();loadBNMeta();loadMX();socket();setInterval(loadMX,12000);setInterval(loadBN,60000);setInterval(loadBNMeta,1800000);
