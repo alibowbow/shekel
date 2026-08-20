@@ -1,400 +1,86 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crypto Project Explorer</title>
-    <style>
-        /* 기본 & 폰트 스타일 */
-        :root {
-            --bg-color: #f8f9fa;
-            --card-bg: #ffffff;
-            --text-color: #212529;
-            --primary-color: #0d6efd;
-            --secondary-color: #6c757d;
-            --border-color: #dee2e6;
-            --shadow-color: rgba(0, 0, 0, 0.08);
-            --favorite-color: #ffc107;
-        }
-        body.dark-mode {
-            --bg-color: #212529;
-            --card-bg: #343a40;
-            --text-color: #f8f9fa;
-            --secondary-color: #adb5bd;
-            --border-color: #495057;
-            --shadow-color: rgba(0, 0, 0, 0.5);
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            margin: 0;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-        }
-
-        /* 레이아웃 */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        /* 헤더 */
-        .header {
-            text-align: center;
-            margin-bottom: 2.5rem;
-        }
-        .header h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            margin: 0;
-        }
-        .header p {
-            font-size: 1.25rem;
-            color: var(--secondary-color);
-            margin-top: 0.5rem;
-        }
-
-        /* 필터링 섹션 */
-        .filter-section {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2.5rem;
-        }
-        #search-input {
-            flex-grow: 1;
-            padding: 1rem 1.5rem;
-            font-size: 1.1rem;
-            border: 1px solid var(--border-color);
-            border-radius: 50px;
-            box-sizing: border-box;
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
-        #search-input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.25);
-        }
-        #toggle-favorites {
-            padding: 1rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 600;
-            background-color: var(--card-bg);
-            color: var(--secondary-color);
-            border: 1px solid var(--border-color);
-            border-radius: 50px;
-            cursor: pointer;
-            white-space: nowrap;
-            transition: background-color 0.2s, color 0.2s;
-        }
-        #toggle-favorites.active {
-            background-color: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
-
-        #dark-mode-toggle {
-            padding: 1rem 1.5rem;
-            font-size: 1rem;
-            background-color: var(--card-bg);
-            color: var(--secondary-color);
-            border: 1px solid var(--border-color);
-            border-radius: 50px;
-            cursor: pointer;
-            white-space: nowrap;
-            transition: background-color 0.2s, color 0.2s;
-        }
-        #dark-mode-toggle.active {
-            background-color: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
-
-        /* 코인 그리드 */
-        .coin-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-        .coin-grid .coin-link {
-            text-decoration: none;
-            color: inherit;
-        }
-        
-        /* 코인 카드 */
-        .coin-card {
-            position: relative;
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 1.5rem;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 4px 12px var(--shadow-color);
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-            height: 100%;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-        }
-        .coin-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 8px 24px var(--shadow-color);
-        }
-        .coin-card h2 {
-            font-size: 1.5rem;
-            margin-top: 0;
-            margin-bottom: 0.5rem;
-            padding-right: 30px;
-        }
-        .coin-card p {
-            font-size: 1rem;
-            color: var(--secondary-color);
-            margin: 0;
-            flex-grow: 1;
-        }
-        
-        .bookmark-icon {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            cursor: pointer;
-            width: 20px;
-            height: 20px;
-        }
-        .bookmark-icon svg {
-            width: 100%;
-            height: 100%;
-            stroke: #adb5bd;
-            stroke-width: 1.5;
-            fill: none;
-            transition: fill 0.2s, stroke 0.2s;
-        }
-        .bookmark-icon:not(.favorited):hover svg {
-            stroke: var(--secondary-color);
-        }
-        .bookmark-icon.favorited svg {
-            fill: var(--favorite-color);
-            stroke: var(--favorite-color);
-        }
-
-        /* 푸터 */
-        .footer {
-            text-align: center;
-            margin-top: 4rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border-color);
-            color: var(--secondary-color);
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080a0e">
+<title>SHEKEL</title>
+<style>
+:root{color-scheme:dark;--bg:#080a0e;--panel:#0e1218;--line:#202631;--text:#f2f4f7;--muted:#778191;--yellow:#f0b90b;--green:#19c784;--red:#ea3943}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Pretendard,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-variant-numeric:tabular-nums}button,input,select{font:inherit}.top{position:sticky;top:0;z-index:10;height:56px;padding:0 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #171c24;background:rgba(8,10,14,.94);backdrop-filter:blur(14px)}.brand{display:flex;align-items:center;gap:9px;font-size:16px;font-weight:900;letter-spacing:.13em}.mark{width:9px;height:9px;background:var(--yellow);border-radius:2px;transform:rotate(45deg)}.status{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:11px}.dot{width:7px;height:7px;border-radius:50%;background:#5e6877}.status.live .dot{background:var(--green);box-shadow:0 0 10px rgba(25,199,132,.5)}.status.partial .dot{background:var(--yellow)}main{width:min(1480px,100%);margin:auto;padding:16px 20px 28px}.controls{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:11px}.tabs{display:flex;gap:5px;overflow:auto;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}.tab{height:35px;padding:0 13px;border:0;border-radius:9px;background:transparent;color:var(--muted);font-size:11px;font-weight:900;cursor:pointer}.tab:hover{background:var(--panel);color:var(--text)}.tab.on{background:var(--yellow);color:#090a0c}.tools{display:flex;gap:7px}.search,.sort{height:35px;border:1px solid var(--line);border-radius:9px;background:var(--panel);color:var(--text);outline:0}.search{width:180px;padding:0 11px}.search::placeholder{color:#596373}.sort{padding:0 9px;color:#aab1bc;font-size:11px}.board{overflow:hidden;min-height:410px;border:1px solid var(--line);border-radius:13px;background:var(--panel)}table{width:100%;border-collapse:collapse;table-layout:fixed}th{height:40px;padding:0 13px;border-bottom:1px solid var(--line);color:#687384;font-size:9px;letter-spacing:.08em;text-align:right}th:nth-child(-n+2){text-align:left}td{height:61px;padding:0 13px;border-bottom:1px solid #181d26;text-align:right;font-size:13px;white-space:nowrap}tbody tr:last-child td{border-bottom:0}.row{cursor:pointer}.row:hover,.row:focus{background:#131820;outline:0}.fav{width:30px;height:30px;border:0;border-radius:8px;background:transparent;color:#4e5866;font-size:17px;cursor:pointer}.fav:hover{background:#1a202a}.fav.on{color:var(--yellow)}.coin{text-align:left}.coin b{display:block;overflow:hidden;text-overflow:ellipsis}.coin small{display:block;margin-top:3px;color:#667181;font-size:9px}.price{font-weight:750}.up{color:var(--green);font-weight:800}.down{color:var(--red);font-weight:800}.dim{color:#667181}.badges{display:flex;justify-content:flex-end;gap:4px}.badge{height:19px;padding:0 5px;display:inline-flex;align-items:center;border:1px solid #303847;border-radius:5px;color:#8d97a6;font-size:7px;font-weight:900}.badge.bn{color:#ddb229;border-color:#5f4c16}.badge.mx{color:#6aa5f4;border-color:#284b79}.badge.dx{color:#aa8af7;border-color:#493878}.empty{display:none;min-height:360px;place-items:center;color:#707a89;font-size:12px}.empty.on{display:grid}.foot{display:flex;justify-content:space-between;padding:10px 2px;color:#515b69;font-size:9px}.shade{position:fixed;inset:0;z-index:40;visibility:hidden;display:flex;justify-content:flex-end;background:transparent;transition:.2s}.shade.on{visibility:visible;background:rgba(0,0,0,.6)}.drawer{width:min(760px,95vw);height:100dvh;overflow:auto;border-left:1px solid var(--line);background:#0a0d12;transform:translateX(100%);transition:.22s}.shade.on .drawer{transform:none}.dhead{position:sticky;top:0;z-index:2;min-height:66px;padding:12px 15px 12px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);background:rgba(10,13,18,.95);backdrop-filter:blur(12px)}.dtitle b{font-size:18px}.dtitle small{display:block;margin-top:3px;color:#707b8b}.close{width:38px;height:38px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:#a8b0bc;font-size:20px;cursor:pointer}.metrics{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--line)}.metric{padding:13px 18px;border-right:1px solid #181d26}.metric:last-child{border:0}.metric small{color:#626d7d;font-size:9px;font-weight:800}.metric b{display:block;margin-top:6px;overflow:hidden;text-overflow:ellipsis}.chartbox{padding:12px}.chartmeta{height:28px;display:flex;justify-content:space-between;color:#697484;font-size:9px}.chart{width:100%;height:min(630px,calc(100dvh - 172px));min-height:430px;border:1px solid var(--line);border-radius:10px;background:#080a0e}body.lock{overflow:hidden}@media(max-width:820px){main{padding-inline:11px}.controls{align-items:stretch;flex-direction:column}.tools{width:100%}.search{flex:1;width:auto}.vol{display:none}}@media(max-width:620px){.top{height:53px;padding-inline:14px}main{padding-top:11px}th,td{padding-inline:8px}td{height:62px}.fund,.market{display:none}.coincol{width:42%!important}.pricecol{width:31%!important}.changecol{width:27%!important}.starcol{width:38px!important}.favcell{padding-left:4px!important}.drawer{width:100%}.metric{padding:11px}.metric b{font-size:13px}.chartbox{padding:7px}.chart{height:calc(100dvh - 163px);min-height:390px}}
+</style>
 </head>
 <body>
-
-    <div class="container">
-        <header class="header">
-            <h1>Crypto Project Explorer</h1>
-            <p>다양한 암호화폐 프로젝트를 탐색해 보세요.</p>
-        </header>
-
-        <section class="filter-section">
-            <input type="search" id="search-input" placeholder="프로젝트 이름으로 검색...">
-            <button id="toggle-favorites">즐겨찾기 보기</button>
-            <button id="dark-mode-toggle" aria-label="다크 모드 전환">🌙</button>
-        </section>
-
-        <main class="coin-grid" id="coin-grid">
-            <!-- Shekel 코인 카드 -->
-            <a href="data/shekel.html" class="coin-link" data-coin-id="shekel">
-                <div class="coin-card">
-                    <div class="bookmark-icon">
-                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-                    </div>
-                    <h2>Shekel (SHEKEL)</h2>
-                    <p>AI 펀드 런치패드 플랫폼</p>
-                </div>
-            </a>
-
-            <!-- Anon 코인 카드 -->
-            <a href="data/anon.html" class="coin-link" data-coin-id="anon">
-                <div class="coin-card">
-                    <div class="bookmark-icon">
-                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-                    </div>
-                    <h2>Hey Anon (ANON)</h2>
-                    <p>AI 챗봇을 통해 DeFi 거래와 자산 관리를 쉽게 할 수 있는 탈중앙화 금융 플랫폼</p>
-                </div>
-            </a>
-
-            <!-- Bink AI 코인 카드 -->
-            <a href="data/bink.html" class="coin-link" data-coin-id="bink">
-                <div class="coin-card">
-                    <div class="bookmark-icon">
-                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-                    </div>
-                    <h2>Bink AI (BINK)</h2>
-                    <p>BNB 체인 기반 DeFAI 자동화 플랫폼</p>
-                </div>
-            </a>
-
-            <!-- [추가됨] Pythia 코인 카드 -->
-            <a href="data/pythia.html" class="coin-link" data-coin-id="pythia">
-                <div class="coin-card">
-                    <div class="bookmark-icon">
-                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-                    </div>
-                    <h2>Pythia (PYTHIA)</h2>
-                    <p>AI와 뇌를 연결하는 DeSci(탈중앙화 과학) 프로젝트</p>
-                </div>
-            </a>
-
-            <a href="data/buzz.html" class="coin-link" data-coin-id="buzz">
-                <div class="coin-card">
-                    <div class="bookmark-icon">
-                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-                    </div>
-                    <h2>Hive AI (BUZZ)</h2>
-                    <p>AI 에이전트 기반 DeFi 실행 플랫폼</p>
-                </div>
-            </a>             
-            
-            <a href="data/gekko.html" class="coin-link" data-coin-id="gekko">
-                <div class="coin-card">
-                    <div class="bookmark-icon">
-                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-                    </div>
-                    <h2>Gekko (GEKKO)</h2>
-                    <p>AI 에이전트 by virtuals</p>
-                </div>
-             </a>
-
-             <a href="data/aibot.html" class="coin-link" data-coin-id="aibot">
-                <div class="coin-card">
-                    <div class="bookmark-icon">
-                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-                    </div>
-                    <h2>Cherry AI (AIBOT)</h2>
-                    <p>AI 트레이딩 Bot</p>
-                </div>
-              </a>
-            
-        </main>
-
-        <footer class="footer">
-            <p>© 2025 Project Explorer. All Rights Reserved.</p>
-        </footer>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const searchInput = document.getElementById('search-input');
-            const toggleFavoritesBtn = document.getElementById('toggle-favorites');
-            const darkModeToggle = document.getElementById('dark-mode-toggle');
-            const coinGrid = document.getElementById('coin-grid');
-            const FAVORITES_KEY = 'cryptoExplorerFavorites';
-            const DARK_MODE_KEY = 'cryptoExplorerDarkMode';
-
-            let favorites = getFavorites();
-            let favoritesViewActive = false;
-            let darkModeActive = false;
-
-            // [중요] 새로운 카드가 추가되었으므로 coinLinks를 다시 조회해야 합니다.
-            const coinLinks = Array.from(coinGrid.querySelectorAll('.coin-link'));
-
-            function getFavorites() {
-                const storedFavorites = localStorage.getItem(FAVORITES_KEY);
-                return storedFavorites ? JSON.parse(storedFavorites) : [];
-            }
-
-            function saveFavorites() {
-                localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
-            }
-
-            function loadDarkMode() {
-                const stored = localStorage.getItem(DARK_MODE_KEY);
-                darkModeActive = stored === 'true';
-                document.body.classList.toggle('dark-mode', darkModeActive);
-                darkModeToggle.classList.toggle('active', darkModeActive);
-            }
-
-            function saveDarkMode() {
-                localStorage.setItem(DARK_MODE_KEY, darkModeActive);
-            }
-
-            function toggleFavorite(coinId) {
-                const index = favorites.indexOf(coinId);
-                if (index > -1) {
-                    favorites.splice(index, 1);
-                } else {
-                    favorites.push(coinId);
-                }
-                saveFavorites();
-                updateCardAppearance();
-            }
-
-            function updateCardAppearance() {
-                coinLinks.forEach(link => {
-                    const coinId = link.dataset.coinId;
-                    const icon = link.querySelector('.bookmark-icon');
-                    if (favorites.includes(coinId)) {
-                        icon.classList.add('favorited');
-                    } else {
-                        icon.classList.remove('favorited');
-                    }
-                });
-            }
-            
-            function filterCards() {
-                const searchTerm = searchInput.value.toLowerCase();
-                
-                coinLinks.forEach(link => {
-                    const coinId = link.dataset.coinId;
-                    const cardText = link.textContent.toLowerCase();
-                    
-                    const isFavorite = favorites.includes(coinId);
-                    const matchesSearch = cardText.includes(searchTerm);
-
-                    let shouldShow = false;
-                    if (favoritesViewActive) {
-                        if (isFavorite && matchesSearch) {
-                            shouldShow = true;
-                        }
-                    } else {
-                        if (matchesSearch) {
-                            shouldShow = true;
-                        }
-                    }
-
-                    link.style.display = shouldShow ? 'block' : 'none';
-                });
-            }
-
-            coinGrid.addEventListener('click', e => {
-                const bookmarkIcon = e.target.closest('.bookmark-icon');
-                if (bookmarkIcon) {
-                    e.preventDefault();
-                    const coinLink = bookmarkIcon.closest('.coin-link');
-                    const coinId = coinLink.dataset.coinId;
-                    toggleFavorite(coinId);
-                }
-            });
-
-            searchInput.addEventListener('input', filterCards);
-
-            darkModeToggle.addEventListener('click', () => {
-                darkModeActive = !darkModeActive;
-                document.body.classList.toggle('dark-mode', darkModeActive);
-                darkModeToggle.classList.toggle('active', darkModeActive);
-                saveDarkMode();
-            });
-
-            toggleFavoritesBtn.addEventListener('click', () => {
-                favoritesViewActive = !favoritesViewActive;
-                toggleFavoritesBtn.classList.toggle('active', favoritesViewActive);
-                toggleFavoritesBtn.textContent = favoritesViewActive ? '모두 보기' : '즐겨찾기 보기';
-                filterCards();
-            });
-
-            updateCardAppearance();
-            loadDarkMode();
-        });
-    </script>
-
+<header class="top"><div class="brand"><span class="mark"></span>SHEKEL</div><div class="status" id="status"><span class="dot"></span><span id="statusText">연결 중</span></div></header>
+<main>
+  <div class="controls">
+    <nav class="tabs" id="tabs"><button class="tab on" data-tab="binance">BINANCE</button><button class="tab" data-tab="mexc">MEXC</button><button class="tab" data-tab="dex">DEX</button><button class="tab" data-tab="favorites">★</button></nav>
+    <div class="tools"><input class="search" id="search" type="search" placeholder="심볼 검색"><select class="sort" id="sort"><option value="change">24H 순</option><option value="volume">거래대금 순</option><option value="symbol">이름 순</option></select></div>
+  </div>
+  <section class="board">
+    <table>
+      <colgroup><col class="starcol" style="width:45px"><col class="coincol" style="width:27%"><col class="pricecol" style="width:18%"><col class="changecol" style="width:13%"><col style="width:17%"><col style="width:12%"><col style="width:13%"></colgroup>
+      <thead><tr><th></th><th>종목</th><th>가격</th><th>24H</th><th class="vol">거래대금</th><th class="fund">펀딩</th><th class="market">마켓</th></tr></thead>
+      <tbody id="rows"><tr><td colspan="7" class="dim" style="text-align:center">시장 데이터 연결 중…</td></tr></tbody>
+    </table>
+    <div class="empty" id="empty">표시할 종목이 없습니다.</div>
+  </section>
+  <div class="foot"><span id="count">0 종목</span><span>공개 API · 읽기 전용</span></div>
+</main>
+<div class="shade" id="shade" aria-hidden="true"><aside class="drawer" role="dialog" aria-modal="true">
+  <header class="dhead"><div class="dtitle"><b id="dSymbol"></b><small id="dName"></small></div><button class="close" id="close" aria-label="닫기">×</button></header>
+  <div class="metrics"><div class="metric"><small>현재가</small><b id="dPrice">—</b></div><div class="metric"><small>24H</small><b id="dChange">—</b></div><div class="metric"><small>펀딩</small><b id="dFunding">—</b></div></div>
+  <div class="chartbox"><div class="chartmeta"><span id="chartSource">임베드 차트</span><span id="chartMarket"></span></div><iframe class="chart" id="chart" title="실시간 차트" loading="lazy" allowfullscreen></iframe></div>
+</aside></div>
+<script>
+'use strict';
+const C=[
+['virtual','VIRTUAL','Virtuals Protocol','Base',['VIRTUALUSDT'],['VIRTUAL_USDT']],
+['aixbt','AIXBT','aixbt','Base',['AIXBTUSDT'],['AIXBT_USDT']],
+['fartcoin','FARTCOIN','Fartcoin','Solana',['FARTCOINUSDT'],['FARTCOIN_USDT']],
+['cookie','COOKIE','Cookie DAO','BNB',['COOKIEUSDT'],['COOKIE_USDT']],
+['degen','DEGEN','Degen','Base',['DEGENUSDT'],['DEGEN_USDT']],
+['popcat','POPCAT','Popcat','Solana',['POPCATUSDT'],['POPCAT_USDT']],
+['moodeng','MOODENG','Moo Deng','Solana',['MOODENGUSDT'],['MOODENG_USDT']],
+['goat','GOAT','Goatseus Maximus','Solana',['GOATUSDT'],['GOAT_USDT']],
+['turbo','TURBO','Turbo','Ethereum',['TURBOUSDT'],['TURBO_USDT']],
+['act','ACT','Act I','Solana',['ACTUSDT'],['ACT_USDT']],
+['pnut','PNUT','Peanut the Squirrel','Solana',['PNUTUSDT'],['PNUT_USDT']],
+['bome','BOME','Book of Meme','Solana',['BOMEUSDT'],['BOME_USDT']],
+['bananas31','BANANAS31','Banana For Scale','BNB',['BANANAS31USDT'],['BANANAS31_USDT']],
+['cheems','CHEEMS','Cheems','BNB',['1000CHEEMSUSDT','CHEEMSUSDT'],['CHEEMS_USDT','1000CHEEMS_USDT']],
+['tst','TST','Test','BNB',['TSTUSDT'],['TST_USDT']],
+['mubarak','MUBARAK','Mubarak','BNB',['MUBARAKUSDT'],['MUBARAK_USDT']],
+['tut','TUT','Tutorial','BNB',['TUTUSDT'],['TUT_USDT']],
+['broccoli','BROCCOLI','Broccoli 714','BNB',['BROCCOLI714USDT'],['BROCCOLI714_USDT']],
+['zerebro','ZEREBRO','Zerebro','Solana',['ZEREBROUSDT'],['ZEREBRO_USDT']],
+['griffain','GRIFFAIN','Griffain','Solana',['GRIFFAINUSDT'],['GRIFFAIN_USDT']],
+['swarms','SWARMS','Swarms','Solana',['SWARMSUSDT'],['SWARMS_USDT']],
+['arc','ARC','AI Rig Complex','Solana',['ARCUSDT'],['ARC_USDT']],
+['shekel','SHEKEL','Rabbi Schlomo','Base',[],['SHEKEL_USDT'],'https://www.geckoterminal.com/ko/base/pools/0x8059f190d74c69363670fe2bf80fa8d1aefb5863?embed=1&info=0&swaps=0&grayscale=0&light_chart=0'],
+['anon','ANON','Hey Anon','Ethereum',['ANONUSDT'],['ANON_USDT'],'https://www.geckoterminal.com/ko/eth/pools/0x848a5564158d84b8a8fb68ab5d004faba1efda88?embed=1&info=0&swaps=0&grayscale=0&light_chart=0'],
+['bink','BINK','Bink AI','BNB',['BINKUSDT'],['BINK_USDT'],'https://www.geckoterminal.com/ko/bsc/pools/0x190a7e22d94a19b9131effc2e9399bc9822ee71a?embed=1&info=0&swaps=0&grayscale=0&light_chart=0'],
+['buzz','BUZZ','Hive AI','Solana',['BUZZUSDT'],['BUZZ_USDT'],'https://www.geckoterminal.com/ko/solana/pools/EbXWiQ5XWJmKwQ9Vohov9VDN3oUjRKVVEpNdNJAV3rNL?embed=1&info=0&swaps=0&grayscale=0&light_chart=0'],
+['gekko','GEKKO','Gekko','Base',['GEKKOUSDT'],['GEKKO_USDT'],'https://www.geckoterminal.com/ko/base/pools/0xbac22d18a3e7ccb367f77c80f2b49d8a358efded?embed=1&info=0&swaps=0&grayscale=0&light_chart=0'],
+['pythia','PYTHIA','Pythia','Solana',['PYTHIAUSDT'],['PYTHIA_USDT'],'https://www.geckoterminal.com/ko/solana/pools/6tb1aU9pSSQJ9U74VJ6hUjUqW6s2z6BkxHNjnMpAR42L?embed=1&info=0&swaps=0&grayscale=0&light_chart=0'],
+['aibot','AIBOT','Cherry AI','Base',['AIBOTUSDT'],['AIBOT_USDT'],'https://www.geckoterminal.com/ko/base/pools/0x86c2f4442e81779be821139dd8ed3b28479077b5?embed=1&info=0&swaps=0&grayscale=0&light_chart=0']
+].map(x=>({id:x[0],symbol:x[1],name:x[2],chain:x[3],bn:x[4],mx:x[5],chart:x[6]}));
+const BN=new Set(C.flatMap(x=>x.bn)),S={tab:'binance',q:'',sort:'change',fav:new Set(JSON.parse(localStorage.getItem('shekel-fav')||'[]')),bn:new Map,mx:new Map,fund:new Map,bl:false,ml:false,last:null,socket:null};
+const $=id=>document.getElementById(id),E={tabs:$('tabs'),search:$('search'),sort:$('sort'),rows:$('rows'),empty:$('empty'),count:$('count'),status:$('status'),statusText:$('statusText'),shade:$('shade'),close:$('close'),dSymbol:$('dSymbol'),dName:$('dName'),dPrice:$('dPrice'),dChange:$('dChange'),dFunding:$('dFunding'),chart:$('chart'),chartSource:$('chartSource'),chartMarket:$('chartMarket')};
+const get=(map,a)=>{for(const k of a||[])if(map.has(k))return map.get(k);return null},bn=c=>{const m=get(S.bn,c.bn);return m&&{...m,funding:S.fund.get(m.symbol)??null}},mx=c=>get(S.mx,c.mx),market=c=>S.tab==='mexc'?(mx(c)||bn(c)):(bn(c)||mx(c));
+const price=n=>{n=+n;if(!isFinite(n)||n<=0)return'—';let d=n>=1?4:n>=.01?6:n>=.0001?8:10;return'$'+n.toLocaleString('en-US',{minimumFractionDigits:n>=1?2:d-2,maximumFractionDigits:d})},pct=(n,d=2)=>isFinite(+n)?`${+n>0?'+':''}${(+n).toFixed(d)}%`:'—',volume=n=>!isFinite(+n)||+n<=0?'—':+n>=1e9?'$'+(+n/1e9).toFixed(2)+'B':+n>=1e6?'$'+(+n/1e6).toFixed(1)+'M':+n>=1e3?'$'+(+n/1e3).toFixed(1)+'K':'$'+(+n).toFixed(0),fund=n=>isFinite(+n)?pct(+n*100,Math.abs(+n*100)<.01?4:3):'—',cc=n=>+n>0?'up':+n<0?'down':'',esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function badges(c){return`${bn(c)?'<i class="badge bn">BINANCE</i>':''}${mx(c)?'<i class="badge mx">MEXC</i>':''}${c.chart?'<i class="badge dx">DEX</i>':''}`}
+function list(){let a=C.filter(c=>{let q=`${c.symbol} ${c.name} ${c.chain}`.toLowerCase();if(S.q&&!q.includes(S.q))return false;if(S.tab==='binance')return!!bn(c);if(S.tab==='mexc')return!!mx(c);if(S.tab==='dex')return!!c.chart;if(S.tab==='favorites')return S.fav.has(c.id)&&!!(market(c)||c.chart);return true});return a.sort((a,b)=>S.sort==='symbol'?a.symbol.localeCompare(b.symbol):S.sort==='volume'?(market(b)?.volume||0)-(market(a)?.volume||0):(market(b)?.change??-1e9)-(market(a)?.change??-1e9))}
+function render(){const a=list();E.count.textContent=`${a.length} 종목`;E.empty.classList.toggle('on',!a.length);E.rows.innerHTML=a.map(c=>{let m=market(c),ch=m?.change;return`<tr class="row" tabindex="0" data-id="${c.id}"><td class="favcell"><button class="fav ${S.fav.has(c.id)?'on':''}" data-fav="${c.id}" aria-label="즐겨찾기">★</button></td><td class="coin"><b>${esc(c.symbol)}</b><small>${esc(c.chain)}</small></td><td class="price ${m?'':'dim'}">${price(m?.price)}</td><td class="${cc(ch)}">${pct(ch)}</td><td class="vol ${m?'':'dim'}">${volume(m?.volume)}</td><td class="fund ${m?.funding==null?'dim':''}">${fund(m?.funding)}</td><td class="market"><span class="badges">${badges(c)}</span></td></tr>`}).join('');status()}
+function status(){E.status.className='status '+(S.bl&&S.ml?'live':S.bl||S.ml?'partial':'');E.statusText.textContent=S.bl&&S.ml?`LIVE · ${S.last?.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit',second:'2-digit'})||''}`:S.bl||S.ml?'부분 연결':'연결 중'}
+async function json(urls,t=5000){let e;for(const u of urls){let c=new AbortController,timer=setTimeout(()=>c.abort(),t);try{let r=await fetch(u,{cache:'no-store',signal:c.signal});if(!r.ok)throw Error(r.status);return await r.json()}catch(x){e=x}finally{clearTimeout(timer)}}throw e}
+async function loadBN(){try{let[t,p]=await Promise.all([json(['https://fapi.binance.com/fapi/v1/ticker/24hr','https://fapi1.binance.com/fapi/v1/ticker/24hr']),json(['https://fapi.binance.com/fapi/v1/premiumIndex','https://fapi1.binance.com/fapi/v1/premiumIndex'])]);for(const x of t)if(BN.has(x.symbol))S.bn.set(x.symbol,{venue:'BINANCE',symbol:x.symbol,price:+x.lastPrice,change:+x.priceChangePercent,volume:+x.quoteVolume});for(const x of p)if(BN.has(x.symbol))S.fund.set(x.symbol,+x.lastFundingRate);S.bl=S.bn.size>0;S.last=new Date()}catch(e){console.warn(e)}render()}
+async function loadMX(){try{let r=await json(['https://contract.mexc.com/api/v1/contract/ticker']),a=Array.isArray(r?.data)?r.data:[];S.mx.clear();for(const x of a){let z=+x.riseFallRate;S.mx.set(x.symbol,{venue:'MEXC',symbol:x.symbol,price:+x.lastPrice,change:isFinite(z)?(Math.abs(z)<=2?z*100:z):null,volume:+(x.amount24||0),funding:isFinite(+x.fundingRate)?+x.fundingRate:null})}S.ml=S.mx.size>0;S.last=new Date()}catch(e){console.warn(e)}render()}
+function socket(){try{S.socket?.close();let w=new WebSocket('wss://fstream.binance.com/ws/!ticker@arr');S.socket=w;w.onmessage=e=>{let a;try{a=JSON.parse(e.data)}catch{return}for(const x of a)if(BN.has(x.s))S.bn.set(x.s,{venue:'BINANCE',symbol:x.s,price:+x.c,change:+x.P,volume:+x.q});S.bl=S.bn.size>0;S.last=new Date();render()};w.onclose=()=>setTimeout(socket,5000);w.onerror=()=>w.close()}catch(e){setTimeout(socket,5000)}}
+function tv(c,m){let sym=(m?.symbol||c.bn[0]||c.mx[0]||c.symbol+'USDT').replace('_',''),ex=m?.venue==='MEXC'&&!c.bn.length?'MEXC':'BINANCE';return'https://s.tradingview.com/widgetembed/?'+new URLSearchParams({symbol:`${ex}:${sym}.P`,interval:'15',theme:'dark',style:'1',locale:'kr',allow_symbol_change:'0',hideideas:'1'})}
+function open(c){let m=market(c),ch=m?.change;E.dSymbol.innerHTML=esc(c.symbol)+' <span class="badges">'+badges(c)+'</span>';E.dName.textContent=`${c.name} · ${c.chain}`;E.dPrice.textContent=price(m?.price);E.dChange.textContent=pct(ch);E.dChange.className=cc(ch);E.dFunding.textContent=fund(m?.funding);E.chart.src=c.chart||tv(c,m);E.chartSource.textContent=c.chart?'GeckoTerminal':'TradingView';E.chartMarket.textContent=m?.venue||'DEX';E.shade.classList.add('on');E.shade.setAttribute('aria-hidden','false');document.body.classList.add('lock')}
+function close(){E.shade.classList.remove('on');E.shade.setAttribute('aria-hidden','true');E.chart.src='about:blank';document.body.classList.remove('lock')}
+E.tabs.onclick=e=>{let b=e.target.closest('[data-tab]');if(!b)return;S.tab=b.dataset.tab;document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x===b));render()};E.search.oninput=e=>{S.q=e.target.value.trim().toLowerCase();render()};E.sort.onchange=e=>{S.sort=e.target.value;render()};E.rows.onclick=e=>{let f=e.target.closest('[data-fav]');if(f){e.stopPropagation();S.fav.has(f.dataset.fav)?S.fav.delete(f.dataset.fav):S.fav.add(f.dataset.fav);localStorage.setItem('shekel-fav',JSON.stringify([...S.fav]));return render()}let r=e.target.closest('[data-id]');if(r)open(C.find(c=>c.id===r.dataset.id))};E.rows.onkeydown=e=>{if((e.key==='Enter'||e.key===' ')&&!e.target.closest('button')){e.preventDefault();let r=e.target.closest('[data-id]');if(r)open(C.find(c=>c.id===r.dataset.id))}};E.close.onclick=close;E.shade.onclick=e=>{if(e.target===E.shade)close()};onkeydown=e=>{if(e.key==='Escape')close()};
+render();loadBN();loadMX();socket();setInterval(loadMX,10000);setInterval(loadBN,60000);
+</script>
 </body>
 </html>
