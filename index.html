@@ -8,7 +8,7 @@
 <script>
 (()=>{try{const saved=localStorage.getItem('shekel-theme');const theme=saved||(matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');document.documentElement.dataset.theme=theme}catch(_){}})();
 </script>
-<link rel="stylesheet" href="style.css?v=3">
+<link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
 <header class="top">
@@ -33,10 +33,17 @@
       </select>
     </div>
   </div>
+  <nav class="categories" id="categories" aria-label="바이낸스 분류"></nav>
   <section class="board">
     <table>
       <colgroup><col class="starcol" style="width:45px"><col class="coincol" style="width:27%"><col class="pricecol" style="width:18%"><col class="changecol" style="width:13%"><col style="width:17%"><col style="width:12%"><col style="width:13%"></colgroup>
-      <thead><tr><th></th><th>종목</th><th>가격</th><th>24H</th><th class="vol">거래대금</th><th class="fund">펀딩</th><th class="market">마켓</th></tr></thead>
+      <thead id="tableHead"><tr>
+        <th></th>
+        <th><button class="sorthead sorthead-left" type="button" data-head-sort="symbol" aria-label="종목 정렬">종목 <span class="sortmark" id="symbolSortMark"></span></button></th>
+        <th>가격</th>
+        <th><button class="sorthead" type="button" data-head-sort="change" aria-label="24시간 상승률 정렬">24H <span class="sortmark" id="changeSortMark">▼</span></button></th>
+        <th class="vol">거래대금</th><th class="fund">펀딩</th><th class="market">마켓</th>
+      </tr></thead>
       <tbody id="rows"><tr class="loadingrow"><td colspan="7">시장 데이터 연결 중…</td></tr></tbody>
     </table>
     <div class="empty" id="empty">표시할 종목이 없습니다.</div>
@@ -50,6 +57,6 @@
     <div class="chartbox"><div class="chartmeta"><span id="chartSource">임베드 차트</span><a id="chartOpen" href="#" target="_blank" rel="noopener noreferrer">새 창 ↗</a></div><div class="charthost" id="chartHost"><div class="chartload">차트 불러오는 중…</div></div></div>
   </aside>
 </div>
-<script src="app.js?v=3"></script>
+<script src="app.js?v=4"></script>
 </body>
 </html>
